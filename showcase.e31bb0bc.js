@@ -8040,7 +8040,112 @@ var Shape = {
 };
 var _default = Shape;
 exports.default = _default;
-},{"scratch":"../node_modules/scratch/src/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./style":"../src/Shape/style.js"}],"../src/Button/style.js":[function(require,module,exports) {
+},{"scratch":"../node_modules/scratch/src/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./style":"../src/Shape/style.js"}],"../src/Icon/svg/arrow/bold/left.svg":[function(require,module,exports) {
+module.exports = '#8b8ca6163550506b62596f5aa125d79c';
+},{}],"../src/Icon/svg/arrow/bold/right.svg":[function(require,module,exports) {
+module.exports = '#8cfb16a991bc72a366d7d05be1def010';
+},{}],"../src/Icon/svg/arrow/bold/up.svg":[function(require,module,exports) {
+module.exports = '#430c2c644b797f0f8a6558e695fe2ecc';
+},{}],"../src/Icon/svg/arrow/bold/down.svg":[function(require,module,exports) {
+module.exports = '#3856d9bf78c929d93e2cb2e768d89695';
+},{}],"../src/Icon/svg/arrow/bold/index.js":[function(require,module,exports) {
+'use strict'; // arrows/bold
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _left = _interopRequireDefault(require("./left.svg"));
+
+var _right = _interopRequireDefault(require("./right.svg"));
+
+var _up = _interopRequireDefault(require("./up.svg"));
+
+var _down = _interopRequireDefault(require("./down.svg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+  left: _left.default,
+  right: _right.default,
+  up: _up.default,
+  down: _down.default
+};
+exports.default = _default;
+},{"./left.svg":"../src/Icon/svg/arrow/bold/left.svg","./right.svg":"../src/Icon/svg/arrow/bold/right.svg","./up.svg":"../src/Icon/svg/arrow/bold/up.svg","./down.svg":"../src/Icon/svg/arrow/bold/down.svg"}],"../src/Icon/svg/index.js":[function(require,module,exports) {
+'use strict'; // arrows
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _bold = _interopRequireDefault(require("./arrow/bold"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = _objectSpread({}, _bold.default);
+
+exports.default = _default;
+},{"./arrow/bold":"../src/Icon/svg/arrow/bold/index.js"}],"../src/Icon/style.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  width: '1em',
+  height: '1em',
+  fill: 'currentColor',
+  display: 'inline-block'
+};
+exports.default = _default;
+},{}],"../src/Icon/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _svg = _interopRequireDefault(require("./svg"));
+
+var _style = _interopRequireDefault(require("./style"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var useSVGSymbol = function useSVGSymbol(name) {
+  return "<use xlink:href=\"".concat(_svg.default[name], "\" />");
+}; // create icon
+
+
+var Icon = {
+  tag: 'svg',
+  style: _style.default,
+  class: {},
+  define: {
+    name: function name(param, element) {
+      return useSVGSymbol(param);
+    }
+  },
+  attr: {
+    viewBox: '0 0 16 16'
+  },
+  html: function html(element) {
+    return element.name || useSVGSymbol(element.key);
+  }
+};
+var _default = Icon;
+exports.default = _default;
+},{"./svg":"../src/Icon/svg/index.js","./style":"../src/Icon/style.js"}],"../src/Button/style.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8086,6 +8191,12 @@ Object.defineProperty(exports, "Shape", {
     return _Shape.default;
   }
 });
+Object.defineProperty(exports, "Icon", {
+  enumerable: true,
+  get: function () {
+    return _Icon.default;
+  }
+});
 Object.defineProperty(exports, "Button", {
   enumerable: true,
   get: function () {
@@ -8095,10 +8206,12 @@ Object.defineProperty(exports, "Button", {
 
 var _Shape = _interopRequireDefault(require("./Shape"));
 
+var _Icon = _interopRequireDefault(require("./Icon"));
+
 var _Button = _interopRequireDefault(require("./Button"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Shape":"../src/Shape/index.js","./Button":"../src/Button/index.js"}],"buttons/index.js":[function(require,module,exports) {
+},{"./Shape":"../src/Shape/index.js","./Icon":"../src/Icon/index.js","./Button":"../src/Button/index.js"}],"buttons/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8110,23 +8223,21 @@ var _src = require("../../src");
 
 var _default = {
   childProto: {
+    proto: _src.Button,
     style: {
       marginRight: 26
     }
   },
   button0: {
-    proto: _src.Button,
     text: 'Avoe',
     theme: 'primary'
   },
   button1: {
-    proto: _src.Button,
     text: 'Avoe',
     theme: 'secondary',
     round: 26
   },
   button2: {
-    proto: _src.Button,
     text: 'Avoe',
     shape: 'rectangle',
     theme: 'tertiary',
@@ -8192,6 +8303,37 @@ var _default = _objectSpread({
 }]);
 
 exports.default = _default;
+},{"../../src":"../src/index.js"}],"icons/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _src = require("../../src");
+
+var _default = {
+  style: {
+    margin: '0 -16px !important'
+  },
+  class: {},
+  childProto: {
+    proto: _src.Icon,
+    name: function name(element) {
+      return element.key;
+    },
+    style: {
+      margin: 16,
+      color: 'black'
+    }
+  },
+  left: {},
+  right: {},
+  up: {},
+  down: {}
+};
+exports.default = _default;
 },{"../../src":"../src/index.js"}],"index.js":[function(require,module,exports) {
 'use strict';
 
@@ -8206,6 +8348,8 @@ var _colors = _interopRequireDefault(require("./colors"));
 var _buttons = _interopRequireDefault(require("./buttons"));
 
 var _shapes = _interopRequireDefault(require("./shapes"));
+
+var _icons = _interopRequireDefault(require("./icons"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8227,12 +8371,16 @@ _domql.default.create({
     h1: 'Shapes',
     container: _shapes.default
   },
+  icons: {
+    h1: 'Icons',
+    container: _icons.default
+  },
   buttons: {
     h1: 'Buttons',
     container: _buttons.default
   }
 });
-},{"./config":"config/index.js","domql":"../node_modules/domql/src/index.js","./styles":"styles.js","./colors":"colors/index.js","./buttons":"buttons/index.js","./shapes":"shapes/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./config":"config/index.js","domql":"../node_modules/domql/src/index.js","./styles":"styles.js","./colors":"colors/index.js","./buttons":"buttons/index.js","./shapes":"shapes/index.js","./icons":"icons/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -8260,7 +8408,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53872" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65018" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
