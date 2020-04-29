@@ -392,6 +392,12 @@ Object.defineProperty(exports, "unit", {
     return _config.unit;
   }
 });
+Object.defineProperty(exports, "sequence", {
+  enumerable: true,
+  get: function () {
+    return _config.sequence;
+  }
+});
 
 var _methods = require("./methods");
 
@@ -7928,6 +7934,9 @@ var style = {
 };
 exports.style = style;
 var round = {
+  0: {
+    borderRadius: 0
+  },
   4: {
     borderRadius: 4
   },
@@ -8145,7 +8154,58 @@ var Icon = {
 };
 var _default = Icon;
 exports.default = _default;
-},{"./svg":"../src/Icon/svg/index.js","./style":"../src/Icon/style.js"}],"../src/Button/style.js":[function(require,module,exports) {
+},{"./svg":"../src/Icon/svg/index.js","./style":"../src/Icon/style.js"}],"../src/IconText/style.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _scratch = require("scratch");
+
+var _default = {
+  display: 'flex',
+  alignContent: 'center',
+  lineHeight: 1,
+  '& > svg': {
+    marginRight: "".concat(0.35, "em")
+  }
+};
+exports.default = _default;
+},{"scratch":"../node_modules/scratch/src/index.js"}],"../src/IconText/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _style = _interopRequireDefault(require("./style"));
+
+var _ = require("..");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var IconText = {
+  style: _style.default,
+  class: {},
+  define: {
+    icon: function icon(param) {
+      return param || 'left';
+    }
+  },
+  _icon: {
+    proto: _.Icon,
+    name: function name(element) {
+      return element.parent.icon;
+    }
+  },
+  text: ''
+};
+var _default = IconText;
+exports.default = _default;
+},{"./style":"../src/IconText/style.js","..":"../src/index.js"}],"../src/Button/style.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8197,6 +8257,12 @@ Object.defineProperty(exports, "Icon", {
     return _Icon.default;
   }
 });
+Object.defineProperty(exports, "IconText", {
+  enumerable: true,
+  get: function () {
+    return _IconText.default;
+  }
+});
 Object.defineProperty(exports, "Button", {
   enumerable: true,
   get: function () {
@@ -8208,10 +8274,12 @@ var _Shape = _interopRequireDefault(require("./Shape"));
 
 var _Icon = _interopRequireDefault(require("./Icon"));
 
+var _IconText = _interopRequireDefault(require("./IconText"));
+
 var _Button = _interopRequireDefault(require("./Button"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Shape":"../src/Shape/index.js","./Icon":"../src/Icon/index.js","./Button":"../src/Button/index.js"}],"buttons/index.js":[function(require,module,exports) {
+},{"./Shape":"../src/Shape/index.js","./Icon":"../src/Icon/index.js","./IconText":"../src/IconText/index.js","./Button":"../src/Button/index.js"}],"buttons/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8233,15 +8301,24 @@ var _default = {
     theme: 'primary'
   },
   button1: {
-    text: 'Avoe',
     theme: 'secondary',
-    round: 26
+    round: 26,
+    icontext: {
+      proto: _src.IconText,
+      icon: function icon(element) {
+        return 'down';
+      },
+      _icon: {},
+      text: function text(element) {
+        return 'Download';
+      }
+    }
   },
   button2: {
     text: 'Avoe',
     shape: 'rectangle',
     theme: 'tertiary',
-    round: 0
+    round: 26
   }
 };
 exports.default = _default;
@@ -8315,7 +8392,7 @@ var _src = require("../../src");
 
 var _default = {
   style: {
-    margin: '0 -16px !important'
+    margin: '1rem -16px !important'
   },
   class: {},
   childProto: {
@@ -8326,6 +8403,41 @@ var _default = {
     style: {
       margin: 16,
       color: 'black'
+    }
+  },
+  left: {},
+  right: {},
+  up: {},
+  down: {}
+};
+exports.default = _default;
+},{"../../src":"../src/index.js"}],"icons/iconText.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _src = require("../../src");
+
+var _default = {
+  style: {
+    margin: '1rem -16px !important'
+  },
+  class: {},
+  childProto: {
+    proto: _src.IconText,
+    style: {
+      margin: 16,
+      color: 'black'
+    },
+    icon: function icon(element) {
+      return element.key;
+    },
+    _icon: {},
+    text: function text(element) {
+      return element.key;
     }
   },
   left: {},
@@ -8351,6 +8463,8 @@ var _shapes = _interopRequireDefault(require("./shapes"));
 
 var _icons = _interopRequireDefault(require("./icons"));
 
+var _iconText = _interopRequireDefault(require("./icons/iconText"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _domql.default.create({
@@ -8365,22 +8479,23 @@ _domql.default.create({
   },
   colors: {
     h1: 'Colors',
-    container: _colors.default
+    colors: _colors.default
   },
   shapes: {
     h1: 'Shapes',
-    container: _shapes.default
+    shapes: _shapes.default
   },
   icons: {
     h1: 'Icons',
-    container: _icons.default
+    icons: _icons.default,
+    iconText: _iconText.default
   },
   buttons: {
     h1: 'Buttons',
-    container: _buttons.default
+    buttons: _buttons.default
   }
 });
-},{"./config":"config/index.js","domql":"../node_modules/domql/src/index.js","./styles":"styles.js","./colors":"colors/index.js","./buttons":"buttons/index.js","./shapes":"shapes/index.js","./icons":"icons/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./config":"config/index.js","domql":"../node_modules/domql/src/index.js","./styles":"styles.js","./colors":"colors/index.js","./buttons":"buttons/index.js","./shapes":"shapes/index.js","./icons":"icons/index.js","./icons/iconText":"icons/iconText.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -8408,7 +8523,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65018" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55317" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
