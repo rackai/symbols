@@ -212,7 +212,16 @@ var _default = {
   ratio: _sequence.default['phi']
 };
 exports.default = _default;
-},{"./sequence":"../node_modules/scratch/src/config/sequence.js"}],"../node_modules/scratch/src/config/index.js":[function(require,module,exports) {
+},{"./sequence":"../node_modules/scratch/src/config/sequence.js"}],"../node_modules/scratch/src/config/unit.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = 'px';
+exports.default = _default;
+},{}],"../node_modules/scratch/src/config/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -248,6 +257,12 @@ Object.defineProperty(exports, "size", {
     return _size.default;
   }
 });
+Object.defineProperty(exports, "unit", {
+  enumerable: true,
+  get: function () {
+    return _unit.default;
+  }
+});
 
 var _sequence = _interopRequireDefault(require("./sequence"));
 
@@ -259,8 +274,10 @@ var _box = _interopRequireDefault(require("./box"));
 
 var _size = _interopRequireDefault(require("./size"));
 
+var _unit = _interopRequireDefault(require("./unit"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./sequence":"../node_modules/scratch/src/config/sequence.js","./color":"../node_modules/scratch/src/config/color.js","./theme":"../node_modules/scratch/src/config/theme.js","./box":"../node_modules/scratch/src/config/box.js","./size":"../node_modules/scratch/src/config/size.js"}],"../node_modules/scratch/src/methods/mapTheme.js":[function(require,module,exports) {
+},{"./sequence":"../node_modules/scratch/src/config/sequence.js","./color":"../node_modules/scratch/src/config/color.js","./theme":"../node_modules/scratch/src/config/theme.js","./box":"../node_modules/scratch/src/config/box.js","./size":"../node_modules/scratch/src/config/size.js","./unit":"../node_modules/scratch/src/config/unit.js"}],"../node_modules/scratch/src/methods/mapTheme.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -367,6 +384,12 @@ Object.defineProperty(exports, "size", {
   enumerable: true,
   get: function () {
     return _config.size;
+  }
+});
+Object.defineProperty(exports, "unit", {
+  enumerable: true,
+  get: function () {
+    return _config.unit;
   }
 });
 
@@ -7927,22 +7950,22 @@ var round = {
 exports.round = round;
 var depth = {
   4: {
-    boxShadow: 'rgba(0,0,0,.10) 0 2px 4px'
+    boxShadow: "rgba(0,0,0,.10) 0 2".concat(_scratch.unit, " 4").concat(_scratch.unit)
   },
   6: {
-    boxShadow: 'rgba(0,0,0,.10) 0 3px 6px'
+    boxShadow: "rgba(0,0,0,.10) 0 3".concat(_scratch.unit, " 6").concat(_scratch.unit)
   },
   10: {
-    boxShadow: 'rgba(0,0,0,.10) 0 4px 10px'
+    boxShadow: "rgba(0,0,0,.10) 0 4".concat(_scratch.unit, " 10").concat(_scratch.unit)
   },
   16: {
-    boxShadow: 'rgba(0,0,0,.10) 0 8px 16px'
+    boxShadow: "rgba(0,0,0,.10) 0 8".concat(_scratch.unit, " 16").concat(_scratch.unit)
   },
   26: {
-    boxShadow: 'rgba(0,0,0,.10) 0 14px 26px'
+    boxShadow: "rgba(0,0,0,.10) 0 14".concat(_scratch.unit, " 26").concat(_scratch.unit)
   },
   42: {
-    boxShadow: 'rgba(0,0,0,.10) 0 20px 42px'
+    boxShadow: "rgba(0,0,0,.10) 0 20".concat(_scratch.unit, " 42").concat(_scratch.unit)
   }
 };
 exports.depth = depth;
@@ -7959,8 +7982,8 @@ var size = {
   default: {
     height: "".concat(Math.pow(_scratch.size.ratio, 2), "em"),
     padding: "0 ".concat(_scratch.size.ratio, "em"),
-    fontSize: "".concat(_scratch.size.base, "px"),
-    lineHeight: "".concat(_scratch.size.base, "px")
+    fontSize: "".concat(_scratch.size.base).concat(_scratch.unit),
+    lineHeight: "".concat(_scratch.size.base).concat(_scratch.unit)
   }
 };
 exports.size = size;
@@ -8237,7 +8260,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54537" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53872" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
