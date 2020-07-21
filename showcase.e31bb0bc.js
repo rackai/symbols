@@ -117,350 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/scratch/src/config/sequence.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  'minor-second': 1.067,
-  'major-second': 1.125,
-  'minor-third': 1.2,
-  'major-third': 1.25,
-  'perfect-fourth': 1.333,
-  'augmented-fourth': 1.414,
-  'perfect-fifth': 1.5,
-  'phi': 1.618,
-  // golden-ratio
-  'square-root-3': 1.73205,
-  // theodorus
-  'square-root-5': 2.23,
-  // pythagoras
-  'pi': 3.14 // archimedes
-
-};
-exports.default = _default;
-},{}],"../node_modules/scratch/src/config/color.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var black = '#000000';
-var blue = '#5081BB';
-var green = '#4C904B';
-var cyan = '#63B7A4';
-var yellow = '#DAB648';
-var orange = '#C37234';
-var purple = '#7938B2';
-var red = '#D13B3B';
-var peach = '#EF604E';
-var pink = '#9A36AF';
-var white = '#FFFFFF';
-var colors = {
-  black,
-  blue,
-  green,
-  cyan,
-  yellow,
-  orange,
-  purple,
-  red,
-  peach,
-  pink,
-  white
-};
-var _default = {};
-exports.default = _default;
-},{}],"../node_modules/scratch/src/config/theme.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var themeA = {
-  text: 'blue',
-  background: 'white',
-  border: 'black',
-  // .opacity(0.2),
-  helpers: [],
-  inverse: {} // schemeAInverse
-
-};
-var _default = {};
-exports.default = _default;
-},{}],"../node_modules/scratch/src/config/box.js":[function(require,module,exports) {
-
-},{}],"../node_modules/scratch/src/config/size.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _sequence = _interopRequireDefault(require("./sequence"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-  base: 16,
-  ratio: _sequence.default['phi']
-};
-exports.default = _default;
-},{"./sequence":"../node_modules/scratch/src/config/sequence.js"}],"../node_modules/scratch/src/config/unit.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = 'px';
-exports.default = _default;
-},{}],"../node_modules/scratch/src/config/index.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "sequence", {
-  enumerable: true,
-  get: function () {
-    return _sequence.default;
-  }
-});
-Object.defineProperty(exports, "color", {
-  enumerable: true,
-  get: function () {
-    return _color.default;
-  }
-});
-Object.defineProperty(exports, "theme", {
-  enumerable: true,
-  get: function () {
-    return _theme.default;
-  }
-});
-Object.defineProperty(exports, "box", {
-  enumerable: true,
-  get: function () {
-    return _box.default;
-  }
-});
-Object.defineProperty(exports, "size", {
-  enumerable: true,
-  get: function () {
-    return _size.default;
-  }
-});
-Object.defineProperty(exports, "unit", {
-  enumerable: true,
-  get: function () {
-    return _unit.default;
-  }
-});
-
-var _sequence = _interopRequireDefault(require("./sequence"));
-
-var _color = _interopRequireDefault(require("./color"));
-
-var _theme = _interopRequireDefault(require("./theme"));
-
-var _box = _interopRequireDefault(require("./box"));
-
-var _size = _interopRequireDefault(require("./size"));
-
-var _unit = _interopRequireDefault(require("./unit"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./sequence":"../node_modules/scratch/src/config/sequence.js","./color":"../node_modules/scratch/src/config/color.js","./theme":"../node_modules/scratch/src/config/theme.js","./box":"../node_modules/scratch/src/config/box.js","./size":"../node_modules/scratch/src/config/size.js","./unit":"../node_modules/scratch/src/config/unit.js"}],"../node_modules/scratch/src/methods/mapTheme.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var themeMap = {
-  text: 'color',
-  background: 'backgroundColor',
-  border: 'border-color'
-};
-
-var _default = scheme => {
-  var obj = {};
-
-  for (let prop in scheme) {
-    var value = scheme[prop];
-    var mappedProp = themeMap[prop];
-
-    if (mappedProp && value) {
-      obj[mappedProp] = value;
-    }
-  }
-
-  return obj;
-};
-
-exports.default = _default;
-},{}],"../node_modules/scratch/src/methods/register.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _config = require("../config");
-
-var _mapTheme = _interopRequireDefault(require("./mapTheme"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var register = (kind, ...props) => {
-  if (kind === 'color') {
-    var colors = props[0];
-
-    for (let c in colors) {
-      _config.color[c] = colors[c];
-    }
-  } else if (kind === 'theme') {
-    props.map((value, key) => {
-      var {
-        name
-      } = value;
-      if (!name) name = key;
-      _config.theme[name] = (0, _mapTheme.default)(value);
-    });
-  }
-};
-
-var _default = register;
-exports.default = _default;
-},{"../config":"../node_modules/scratch/src/config/index.js","./mapTheme":"../node_modules/scratch/src/methods/mapTheme.js"}],"../node_modules/scratch/src/methods/index.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "register", {
-  enumerable: true,
-  get: function () {
-    return _register.default;
-  }
-});
-
-var _register = _interopRequireDefault(require("./register"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./register":"../node_modules/scratch/src/methods/register.js"}],"../node_modules/scratch/src/index.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "register", {
-  enumerable: true,
-  get: function () {
-    return _methods.register;
-  }
-});
-Object.defineProperty(exports, "color", {
-  enumerable: true,
-  get: function () {
-    return _config.color;
-  }
-});
-Object.defineProperty(exports, "theme", {
-  enumerable: true,
-  get: function () {
-    return _config.theme;
-  }
-});
-Object.defineProperty(exports, "size", {
-  enumerable: true,
-  get: function () {
-    return _config.size;
-  }
-});
-Object.defineProperty(exports, "unit", {
-  enumerable: true,
-  get: function () {
-    return _config.unit;
-  }
-});
-Object.defineProperty(exports, "sequence", {
-  enumerable: true,
-  get: function () {
-    return _config.sequence;
-  }
-});
-
-var _methods = require("./methods");
-
-var _config = require("./config");
-},{"./methods":"../node_modules/scratch/src/methods/index.js","./config":"../node_modules/scratch/src/config/index.js"}],"config/color.js":[function(require,module,exports) {
-'use strict';
-
-var _scratch = require("scratch");
-
-(0, _scratch.register)('color', {
-  black: '#000',
-  blue: '#0079FD',
-  indigo: '#50E1FF',
-  green: '#59AC56',
-  red: '#FE5B47',
-  yellow: '#EDCB38',
-  orange: '#E2862F',
-  brown: '#7D6755',
-  pink: '#FD8ABF',
-  purple: '#7345AF',
-  white: '#fff'
-});
-},{"scratch":"../node_modules/scratch/src/index.js"}],"config/theme.js":[function(require,module,exports) {
-'use strict';
-
-var _scratch = require("scratch");
-
-(0, _scratch.register)('theme', {
-  name: 'primary',
-  text: _scratch.color['white'],
-  background: _scratch.color['red']
-}, {
-  name: 'secondary',
-  text: _scratch.color['white'],
-  background: _scratch.color['blue']
-}, {
-  name: 'tertiary',
-  text: _scratch.color['white'],
-  background: _scratch.color['pink']
-}, {
-  name: 'quo',
-  text: _scratch.color['white'],
-  background: _scratch.color['yellow']
-}, {
-  name: 'qui',
-  text: _scratch.color['white'],
-  background: _scratch.color['indigo']
-}, {
-  name: 'six',
-  text: _scratch.color['white'],
-  background: _scratch.color['green']
-}, {
-  name: 'seq',
-  text: _scratch.color['white'],
-  background: _scratch.color['purple']
-});
-},{"scratch":"../node_modules/scratch/src/index.js"}],"config/index.js":[function(require,module,exports) {
-'use strict';
-
-require("./color");
-
-require("./theme");
-},{"./color":"config/color.js","./theme":"config/theme.js"}],"../node_modules/domql/node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
+})({"../node_modules/@rackai/domql/node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -1191,46 +848,7 @@ try {
   Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"../node_modules/domql/src/element/params/exec.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _default = function _default(param, element) {
-  if (param !== undefined) {
-    if (typeof param === 'function') {
-      return param(element);
-    }
-
-    return param;
-  }
-};
-
-exports.default = _default;
-},{}],"../node_modules/domql/src/utils/map.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _exec = _interopRequireDefault(require("../element/params/exec"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapProperty = function mapProperty(obj, extention, element) {
-  for (var e in extention) {
-    obj[e] = (0, _exec.default)(extention[e], element);
-  }
-};
-
-var _default = mapProperty;
-exports.default = _default;
-},{"../element/params/exec":"../node_modules/domql/src/element/params/exec.js"}],"../node_modules/domql/src/utils/browser.js":[function(require,module,exports) {
+},{}],"../node_modules/@rackai/domql/src/element/nodes.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1238,1965 +856,122 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _default = {
-  // Safari 3.0+ "[object HTMLElementConstructor]"
-  safari: /constructor/i.test(window.HTMLElement) || function (p) {
-    return p.toString() === '[object SafariRemoteNotification]';
-  }(!window['safari'] || typeof safari !== 'undefined' && safari.pushNotification),
-  // eslint-disable-line
-  // Opera 8.0+
-  opera: !!window.opr && !!opr.addons || // eslint-disable-line
-  !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0,
-  // Firefox 1.0+
-  firefox: typeof InstallTrigger !== 'undefined',
-  // Internet Explorer 6-11
-  IE:
-  /* @cc_on!@ */
-  false || !!document.documentMode,
-  // Edge 20+
-  edge: (false || !!document.documentMode) && !!window.StyleMedia,
-  // Chrome 1 - 71
-  chrome: !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)
+  root: ['body', 'html'],
+  head: ['title', 'base', 'meta', 'style'],
+  body: ['string', 'fragment', 'a', 'abbr', 'acronym', 'address', 'applet', 'area', 'article', 'aside', 'audio', 'b', 'basefont', 'bdi', 'bdo', 'big', 'blockquote', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'frame', 'frameset', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hr', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'meter', 'nav', 'noframes', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strike', 'strong', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr', // SVG
+  'svg', 'path']
 };
 exports.default = _default;
-},{}],"../node_modules/domql/src/utils/set.js":[function(require,module,exports) {
+},{}],"../node_modules/@rackai/domql/src/utils/object.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-
-var _ = _interopRequireDefault(require(".."));
-
-var _this = void 0;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var setCurrent = function setCurrent(code) {
-  var hasProperty = Object.prototype.hasOwnProperty.call(_this.list, code);
-
-  if (hasProperty) {
-    _this.current = code;
-  }
-};
-
-var setQuickPreferences = function setQuickPreferences(prefsObj) {
-  if (!prefsObj || _typeof(prefsObj) !== 'object') {
-    return (0, _.default)('setQuickPreferencesIsNotObject');
-  }
-};
-
-var _default = {
-  setCurrent: setCurrent,
-  setQuickPreferences: setQuickPreferences
-};
-exports.default = _default;
-},{"..":"../node_modules/domql/src/index.js"}],"../node_modules/domql/node_modules/lodash.clonedeep/index.js":[function(require,module,exports) {
-var global = arguments[3];
-
-/**
- * lodash (Custom Build) <https://lodash.com/>
- * Build: `lodash modularize exports="npm" -o ./`
- * Copyright jQuery Foundation and other contributors <https://jquery.org/>
- * Released under MIT license <https://lodash.com/license>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- */
-
-/** Used as the size to enable large array optimizations. */
-var LARGE_ARRAY_SIZE = 200;
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]',
-    arrayTag = '[object Array]',
-    boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    funcTag = '[object Function]',
-    genTag = '[object GeneratorFunction]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    objectTag = '[object Object]',
-    promiseTag = '[object Promise]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]',
-    weakMapTag = '[object WeakMap]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/**
- * Used to match `RegExp`
- * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
- */
-var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-
-/** Used to match `RegExp` flags from their coerced string values. */
-var reFlags = /\w*$/;
-
-/** Used to detect host constructors (Safari). */
-var reIsHostCtor = /^\[object .+?Constructor\]$/;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/** Used to identify `toStringTag` values supported by `_.clone`. */
-var cloneableTags = {};
-cloneableTags[argsTag] = cloneableTags[arrayTag] =
-cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
-cloneableTags[boolTag] = cloneableTags[dateTag] =
-cloneableTags[float32Tag] = cloneableTags[float64Tag] =
-cloneableTags[int8Tag] = cloneableTags[int16Tag] =
-cloneableTags[int32Tag] = cloneableTags[mapTag] =
-cloneableTags[numberTag] = cloneableTags[objectTag] =
-cloneableTags[regexpTag] = cloneableTags[setTag] =
-cloneableTags[stringTag] = cloneableTags[symbolTag] =
-cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
-cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
-cloneableTags[errorTag] = cloneableTags[funcTag] =
-cloneableTags[weakMapTag] = false;
-
-/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-/** Detect free variable `exports`. */
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/**
- * Adds the key-value `pair` to `map`.
- *
- * @private
- * @param {Object} map The map to modify.
- * @param {Array} pair The key-value pair to add.
- * @returns {Object} Returns `map`.
- */
-function addMapEntry(map, pair) {
-  // Don't return `map.set` because it's not chainable in IE 11.
-  map.set(pair[0], pair[1]);
-  return map;
-}
-
-/**
- * Adds `value` to `set`.
- *
- * @private
- * @param {Object} set The set to modify.
- * @param {*} value The value to add.
- * @returns {Object} Returns `set`.
- */
-function addSetEntry(set, value) {
-  // Don't return `set.add` because it's not chainable in IE 11.
-  set.add(value);
-  return set;
-}
-
-/**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
- */
-function arrayEach(array, iteratee) {
-  var index = -1,
-      length = array ? array.length : 0;
-
-  while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
-    }
-  }
-  return array;
-}
-
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
-function arrayPush(array, values) {
-  var index = -1,
-      length = values.length,
-      offset = array.length;
-
-  while (++index < length) {
-    array[offset + index] = values[index];
-  }
-  return array;
-}
-
-/**
- * A specialized version of `_.reduce` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {*} [accumulator] The initial value.
- * @param {boolean} [initAccum] Specify using the first element of `array` as
- *  the initial value.
- * @returns {*} Returns the accumulated value.
- */
-function arrayReduce(array, iteratee, accumulator, initAccum) {
-  var index = -1,
-      length = array ? array.length : 0;
-
-  if (initAccum && length) {
-    accumulator = array[++index];
-  }
-  while (++index < length) {
-    accumulator = iteratee(accumulator, array[index], index, array);
-  }
-  return accumulator;
-}
-
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
-function baseTimes(n, iteratee) {
-  var index = -1,
-      result = Array(n);
-
-  while (++index < n) {
-    result[index] = iteratee(index);
-  }
-  return result;
-}
-
-/**
- * Gets the value at `key` of `object`.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {string} key The key of the property to get.
- * @returns {*} Returns the property value.
- */
-function getValue(object, key) {
-  return object == null ? undefined : object[key];
-}
-
-/**
- * Checks if `value` is a host object in IE < 9.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
- */
-function isHostObject(value) {
-  // Many host objects are `Object` objects that can coerce to strings
-  // despite having improperly defined `toString` methods.
-  var result = false;
-  if (value != null && typeof value.toString != 'function') {
-    try {
-      result = !!(value + '');
-    } catch (e) {}
-  }
-  return result;
-}
-
-/**
- * Converts `map` to its key-value pairs.
- *
- * @private
- * @param {Object} map The map to convert.
- * @returns {Array} Returns the key-value pairs.
- */
-function mapToArray(map) {
-  var index = -1,
-      result = Array(map.size);
-
-  map.forEach(function(value, key) {
-    result[++index] = [key, value];
-  });
-  return result;
-}
-
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function(arg) {
-    return func(transform(arg));
-  };
-}
-
-/**
- * Converts `set` to an array of its values.
- *
- * @private
- * @param {Object} set The set to convert.
- * @returns {Array} Returns the values.
- */
-function setToArray(set) {
-  var index = -1,
-      result = Array(set.size);
-
-  set.forEach(function(value) {
-    result[++index] = value;
-  });
-  return result;
-}
-
-/** Used for built-in method references. */
-var arrayProto = Array.prototype,
-    funcProto = Function.prototype,
-    objectProto = Object.prototype;
-
-/** Used to detect overreaching core-js shims. */
-var coreJsData = root['__core-js_shared__'];
-
-/** Used to detect methods masquerading as native. */
-var maskSrcKey = (function() {
-  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-  return uid ? ('Symbol(src)_1.' + uid) : '';
-}());
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var objectToString = objectProto.toString;
-
-/** Used to detect if a method is native. */
-var reIsNative = RegExp('^' +
-  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
-  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-);
-
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined,
-    Symbol = root.Symbol,
-    Uint8Array = root.Uint8Array,
-    getPrototype = overArg(Object.getPrototypeOf, Object),
-    objectCreate = Object.create,
-    propertyIsEnumerable = objectProto.propertyIsEnumerable,
-    splice = arrayProto.splice;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeGetSymbols = Object.getOwnPropertySymbols,
-    nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
-    nativeKeys = overArg(Object.keys, Object);
-
-/* Built-in method references that are verified to be native. */
-var DataView = getNative(root, 'DataView'),
-    Map = getNative(root, 'Map'),
-    Promise = getNative(root, 'Promise'),
-    Set = getNative(root, 'Set'),
-    WeakMap = getNative(root, 'WeakMap'),
-    nativeCreate = getNative(Object, 'create');
-
-/** Used to detect maps, sets, and weakmaps. */
-var dataViewCtorString = toSource(DataView),
-    mapCtorString = toSource(Map),
-    promiseCtorString = toSource(Promise),
-    setCtorString = toSource(Set),
-    weakMapCtorString = toSource(WeakMap);
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
-    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * Creates a hash object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Hash(entries) {
-  var index = -1,
-      length = entries ? entries.length : 0;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-/**
- * Removes all key-value entries from the hash.
- *
- * @private
- * @name clear
- * @memberOf Hash
- */
-function hashClear() {
-  this.__data__ = nativeCreate ? nativeCreate(null) : {};
-}
-
-/**
- * Removes `key` and its value from the hash.
- *
- * @private
- * @name delete
- * @memberOf Hash
- * @param {Object} hash The hash to modify.
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function hashDelete(key) {
-  return this.has(key) && delete this.__data__[key];
-}
-
-/**
- * Gets the hash value for `key`.
- *
- * @private
- * @name get
- * @memberOf Hash
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function hashGet(key) {
-  var data = this.__data__;
-  if (nativeCreate) {
-    var result = data[key];
-    return result === HASH_UNDEFINED ? undefined : result;
-  }
-  return hasOwnProperty.call(data, key) ? data[key] : undefined;
-}
-
-/**
- * Checks if a hash value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Hash
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function hashHas(key) {
-  var data = this.__data__;
-  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
-}
-
-/**
- * Sets the hash `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Hash
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the hash instance.
- */
-function hashSet(key, value) {
-  var data = this.__data__;
-  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
-  return this;
-}
-
-// Add methods to `Hash`.
-Hash.prototype.clear = hashClear;
-Hash.prototype['delete'] = hashDelete;
-Hash.prototype.get = hashGet;
-Hash.prototype.has = hashHas;
-Hash.prototype.set = hashSet;
-
-/**
- * Creates an list cache object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function ListCache(entries) {
-  var index = -1,
-      length = entries ? entries.length : 0;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-/**
- * Removes all key-value entries from the list cache.
- *
- * @private
- * @name clear
- * @memberOf ListCache
- */
-function listCacheClear() {
-  this.__data__ = [];
-}
-
-/**
- * Removes `key` and its value from the list cache.
- *
- * @private
- * @name delete
- * @memberOf ListCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function listCacheDelete(key) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  if (index < 0) {
-    return false;
-  }
-  var lastIndex = data.length - 1;
-  if (index == lastIndex) {
-    data.pop();
-  } else {
-    splice.call(data, index, 1);
-  }
-  return true;
-}
-
-/**
- * Gets the list cache value for `key`.
- *
- * @private
- * @name get
- * @memberOf ListCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function listCacheGet(key) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  return index < 0 ? undefined : data[index][1];
-}
-
-/**
- * Checks if a list cache value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf ListCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function listCacheHas(key) {
-  return assocIndexOf(this.__data__, key) > -1;
-}
-
-/**
- * Sets the list cache `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf ListCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the list cache instance.
- */
-function listCacheSet(key, value) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  if (index < 0) {
-    data.push([key, value]);
-  } else {
-    data[index][1] = value;
-  }
-  return this;
-}
-
-// Add methods to `ListCache`.
-ListCache.prototype.clear = listCacheClear;
-ListCache.prototype['delete'] = listCacheDelete;
-ListCache.prototype.get = listCacheGet;
-ListCache.prototype.has = listCacheHas;
-ListCache.prototype.set = listCacheSet;
-
-/**
- * Creates a map cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function MapCache(entries) {
-  var index = -1,
-      length = entries ? entries.length : 0;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-/**
- * Removes all key-value entries from the map.
- *
- * @private
- * @name clear
- * @memberOf MapCache
- */
-function mapCacheClear() {
-  this.__data__ = {
-    'hash': new Hash,
-    'map': new (Map || ListCache),
-    'string': new Hash
-  };
-}
-
-/**
- * Removes `key` and its value from the map.
- *
- * @private
- * @name delete
- * @memberOf MapCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function mapCacheDelete(key) {
-  return getMapData(this, key)['delete'](key);
-}
-
-/**
- * Gets the map value for `key`.
- *
- * @private
- * @name get
- * @memberOf MapCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function mapCacheGet(key) {
-  return getMapData(this, key).get(key);
-}
-
-/**
- * Checks if a map value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf MapCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function mapCacheHas(key) {
-  return getMapData(this, key).has(key);
-}
-
-/**
- * Sets the map `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf MapCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the map cache instance.
- */
-function mapCacheSet(key, value) {
-  getMapData(this, key).set(key, value);
-  return this;
-}
-
-// Add methods to `MapCache`.
-MapCache.prototype.clear = mapCacheClear;
-MapCache.prototype['delete'] = mapCacheDelete;
-MapCache.prototype.get = mapCacheGet;
-MapCache.prototype.has = mapCacheHas;
-MapCache.prototype.set = mapCacheSet;
-
-/**
- * Creates a stack cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Stack(entries) {
-  this.__data__ = new ListCache(entries);
-}
-
-/**
- * Removes all key-value entries from the stack.
- *
- * @private
- * @name clear
- * @memberOf Stack
- */
-function stackClear() {
-  this.__data__ = new ListCache;
-}
-
-/**
- * Removes `key` and its value from the stack.
- *
- * @private
- * @name delete
- * @memberOf Stack
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function stackDelete(key) {
-  return this.__data__['delete'](key);
-}
-
-/**
- * Gets the stack value for `key`.
- *
- * @private
- * @name get
- * @memberOf Stack
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function stackGet(key) {
-  return this.__data__.get(key);
-}
-
-/**
- * Checks if a stack value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Stack
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function stackHas(key) {
-  return this.__data__.has(key);
-}
-
-/**
- * Sets the stack `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Stack
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the stack cache instance.
- */
-function stackSet(key, value) {
-  var cache = this.__data__;
-  if (cache instanceof ListCache) {
-    var pairs = cache.__data__;
-    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
-      pairs.push([key, value]);
-      return this;
-    }
-    cache = this.__data__ = new MapCache(pairs);
-  }
-  cache.set(key, value);
-  return this;
-}
-
-// Add methods to `Stack`.
-Stack.prototype.clear = stackClear;
-Stack.prototype['delete'] = stackDelete;
-Stack.prototype.get = stackGet;
-Stack.prototype.has = stackHas;
-Stack.prototype.set = stackSet;
-
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
-function arrayLikeKeys(value, inherited) {
-  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
-  // Safari 9 makes `arguments.length` enumerable in strict mode.
-  var result = (isArray(value) || isArguments(value))
-    ? baseTimes(value.length, String)
-    : [];
-
-  var length = result.length,
-      skipIndexes = !!length;
-
-  for (var key in value) {
-    if ((inherited || hasOwnProperty.call(value, key)) &&
-        !(skipIndexes && (key == 'length' || isIndex(key, length)))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-/**
- * Assigns `value` to `key` of `object` if the existing value is not equivalent
- * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * for equality comparisons.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
-function assignValue(object, key, value) {
-  var objValue = object[key];
-  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
-      (value === undefined && !(key in object))) {
-    object[key] = value;
-  }
-}
-
-/**
- * Gets the index at which the `key` is found in `array` of key-value pairs.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} key The key to search for.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function assocIndexOf(array, key) {
-  var length = array.length;
-  while (length--) {
-    if (eq(array[length][0], key)) {
-      return length;
-    }
-  }
-  return -1;
-}
-
-/**
- * The base implementation of `_.assign` without support for multiple sources
- * or `customizer` functions.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @returns {Object} Returns `object`.
- */
-function baseAssign(object, source) {
-  return object && copyObject(source, keys(source), object);
-}
-
-/**
- * The base implementation of `_.clone` and `_.cloneDeep` which tracks
- * traversed objects.
- *
- * @private
- * @param {*} value The value to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @param {boolean} [isFull] Specify a clone including symbols.
- * @param {Function} [customizer] The function to customize cloning.
- * @param {string} [key] The key of `value`.
- * @param {Object} [object] The parent object of `value`.
- * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
- * @returns {*} Returns the cloned value.
- */
-function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
-  var result;
-  if (customizer) {
-    result = object ? customizer(value, key, object, stack) : customizer(value);
-  }
-  if (result !== undefined) {
-    return result;
-  }
-  if (!isObject(value)) {
-    return value;
-  }
-  var isArr = isArray(value);
-  if (isArr) {
-    result = initCloneArray(value);
-    if (!isDeep) {
-      return copyArray(value, result);
-    }
-  } else {
-    var tag = getTag(value),
-        isFunc = tag == funcTag || tag == genTag;
-
-    if (isBuffer(value)) {
-      return cloneBuffer(value, isDeep);
-    }
-    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
-      if (isHostObject(value)) {
-        return object ? value : {};
-      }
-      result = initCloneObject(isFunc ? {} : value);
-      if (!isDeep) {
-        return copySymbols(value, baseAssign(result, value));
-      }
-    } else {
-      if (!cloneableTags[tag]) {
-        return object ? value : {};
-      }
-      result = initCloneByTag(value, tag, baseClone, isDeep);
-    }
-  }
-  // Check for circular references and return its corresponding clone.
-  stack || (stack = new Stack);
-  var stacked = stack.get(value);
-  if (stacked) {
-    return stacked;
-  }
-  stack.set(value, result);
-
-  if (!isArr) {
-    var props = isFull ? getAllKeys(value) : keys(value);
-  }
-  arrayEach(props || value, function(subValue, key) {
-    if (props) {
-      key = subValue;
-      subValue = value[key];
-    }
-    // Recursively populate clone (susceptible to call stack limits).
-    assignValue(result, key, baseClone(subValue, isDeep, isFull, customizer, key, value, stack));
-  });
-  return result;
-}
-
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} prototype The object to inherit from.
- * @returns {Object} Returns the new object.
- */
-function baseCreate(proto) {
-  return isObject(proto) ? objectCreate(proto) : {};
-}
-
-/**
- * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
- * `keysFunc` and `symbolsFunc` to get the enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @param {Function} symbolsFunc The function to get the symbols of `object`.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function baseGetAllKeys(object, keysFunc, symbolsFunc) {
-  var result = keysFunc(object);
-  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
-}
-
-/**
- * The base implementation of `getTag`.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  return objectToString.call(value);
-}
-
-/**
- * The base implementation of `_.isNative` without bad shim checks.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a native function,
- *  else `false`.
- */
-function baseIsNative(value) {
-  if (!isObject(value) || isMasked(value)) {
-    return false;
-  }
-  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
-  return pattern.test(toSource(value));
-}
-
-/**
- * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function baseKeys(object) {
-  if (!isPrototype(object)) {
-    return nativeKeys(object);
-  }
-  var result = [];
-  for (var key in Object(object)) {
-    if (hasOwnProperty.call(object, key) && key != 'constructor') {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-/**
- * Creates a clone of  `buffer`.
- *
- * @private
- * @param {Buffer} buffer The buffer to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Buffer} Returns the cloned buffer.
- */
-function cloneBuffer(buffer, isDeep) {
-  if (isDeep) {
-    return buffer.slice();
-  }
-  var result = new buffer.constructor(buffer.length);
-  buffer.copy(result);
-  return result;
-}
-
-/**
- * Creates a clone of `arrayBuffer`.
- *
- * @private
- * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
- * @returns {ArrayBuffer} Returns the cloned array buffer.
- */
-function cloneArrayBuffer(arrayBuffer) {
-  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
-  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
-  return result;
-}
-
-/**
- * Creates a clone of `dataView`.
- *
- * @private
- * @param {Object} dataView The data view to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned data view.
- */
-function cloneDataView(dataView, isDeep) {
-  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
-  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
-}
-
-/**
- * Creates a clone of `map`.
- *
- * @private
- * @param {Object} map The map to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned map.
- */
-function cloneMap(map, isDeep, cloneFunc) {
-  var array = isDeep ? cloneFunc(mapToArray(map), true) : mapToArray(map);
-  return arrayReduce(array, addMapEntry, new map.constructor);
-}
-
-/**
- * Creates a clone of `regexp`.
- *
- * @private
- * @param {Object} regexp The regexp to clone.
- * @returns {Object} Returns the cloned regexp.
- */
-function cloneRegExp(regexp) {
-  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
-  result.lastIndex = regexp.lastIndex;
-  return result;
-}
-
-/**
- * Creates a clone of `set`.
- *
- * @private
- * @param {Object} set The set to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned set.
- */
-function cloneSet(set, isDeep, cloneFunc) {
-  var array = isDeep ? cloneFunc(setToArray(set), true) : setToArray(set);
-  return arrayReduce(array, addSetEntry, new set.constructor);
-}
-
-/**
- * Creates a clone of the `symbol` object.
- *
- * @private
- * @param {Object} symbol The symbol object to clone.
- * @returns {Object} Returns the cloned symbol object.
- */
-function cloneSymbol(symbol) {
-  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
-}
-
-/**
- * Creates a clone of `typedArray`.
- *
- * @private
- * @param {Object} typedArray The typed array to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned typed array.
- */
-function cloneTypedArray(typedArray, isDeep) {
-  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
-  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
-}
-
-/**
- * Copies the values of `source` to `array`.
- *
- * @private
- * @param {Array} source The array to copy values from.
- * @param {Array} [array=[]] The array to copy values to.
- * @returns {Array} Returns `array`.
- */
-function copyArray(source, array) {
-  var index = -1,
-      length = source.length;
-
-  array || (array = Array(length));
-  while (++index < length) {
-    array[index] = source[index];
-  }
-  return array;
-}
-
-/**
- * Copies properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy properties from.
- * @param {Array} props The property identifiers to copy.
- * @param {Object} [object={}] The object to copy properties to.
- * @param {Function} [customizer] The function to customize copied values.
- * @returns {Object} Returns `object`.
- */
-function copyObject(source, props, object, customizer) {
-  object || (object = {});
-
-  var index = -1,
-      length = props.length;
-
-  while (++index < length) {
-    var key = props[index];
-
-    var newValue = customizer
-      ? customizer(object[key], source[key], key, object, source)
-      : undefined;
-
-    assignValue(object, key, newValue === undefined ? source[key] : newValue);
-  }
-  return object;
-}
-
-/**
- * Copies own symbol properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy symbols from.
- * @param {Object} [object={}] The object to copy symbols to.
- * @returns {Object} Returns `object`.
- */
-function copySymbols(source, object) {
-  return copyObject(source, getSymbols(source), object);
-}
-
-/**
- * Creates an array of own enumerable property names and symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function getAllKeys(object) {
-  return baseGetAllKeys(object, keys, getSymbols);
-}
-
-/**
- * Gets the data for `map`.
- *
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
-function getMapData(map, key) {
-  var data = map.__data__;
-  return isKeyable(key)
-    ? data[typeof key == 'string' ? 'string' : 'hash']
-    : data.map;
-}
-
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
-function getNative(object, key) {
-  var value = getValue(object, key);
-  return baseIsNative(value) ? value : undefined;
-}
-
-/**
- * Creates an array of the own enumerable symbol properties of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
-var getSymbols = nativeGetSymbols ? overArg(nativeGetSymbols, Object) : stubArray;
-
-/**
- * Gets the `toStringTag` of `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-var getTag = baseGetTag;
-
-// Fallback for data views, maps, sets, and weak maps in IE 11,
-// for data views in Edge < 14, and promises in Node.js.
-if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
-    (Map && getTag(new Map) != mapTag) ||
-    (Promise && getTag(Promise.resolve()) != promiseTag) ||
-    (Set && getTag(new Set) != setTag) ||
-    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
-  getTag = function(value) {
-    var result = objectToString.call(value),
-        Ctor = result == objectTag ? value.constructor : undefined,
-        ctorString = Ctor ? toSource(Ctor) : undefined;
-
-    if (ctorString) {
-      switch (ctorString) {
-        case dataViewCtorString: return dataViewTag;
-        case mapCtorString: return mapTag;
-        case promiseCtorString: return promiseTag;
-        case setCtorString: return setTag;
-        case weakMapCtorString: return weakMapTag;
-      }
-    }
-    return result;
-  };
-}
-
-/**
- * Initializes an array clone.
- *
- * @private
- * @param {Array} array The array to clone.
- * @returns {Array} Returns the initialized clone.
- */
-function initCloneArray(array) {
-  var length = array.length,
-      result = array.constructor(length);
-
-  // Add properties assigned by `RegExp#exec`.
-  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
-    result.index = array.index;
-    result.input = array.input;
-  }
-  return result;
-}
-
-/**
- * Initializes an object clone.
- *
- * @private
- * @param {Object} object The object to clone.
- * @returns {Object} Returns the initialized clone.
- */
-function initCloneObject(object) {
-  return (typeof object.constructor == 'function' && !isPrototype(object))
-    ? baseCreate(getPrototype(object))
-    : {};
-}
-
-/**
- * Initializes an object clone based on its `toStringTag`.
- *
- * **Note:** This function only supports cloning values with tags of
- * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
- *
- * @private
- * @param {Object} object The object to clone.
- * @param {string} tag The `toStringTag` of the object to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the initialized clone.
- */
-function initCloneByTag(object, tag, cloneFunc, isDeep) {
-  var Ctor = object.constructor;
-  switch (tag) {
-    case arrayBufferTag:
-      return cloneArrayBuffer(object);
-
-    case boolTag:
-    case dateTag:
-      return new Ctor(+object);
-
-    case dataViewTag:
-      return cloneDataView(object, isDeep);
-
-    case float32Tag: case float64Tag:
-    case int8Tag: case int16Tag: case int32Tag:
-    case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
-      return cloneTypedArray(object, isDeep);
-
-    case mapTag:
-      return cloneMap(object, isDeep, cloneFunc);
-
-    case numberTag:
-    case stringTag:
-      return new Ctor(object);
-
-    case regexpTag:
-      return cloneRegExp(object);
-
-    case setTag:
-      return cloneSet(object, isDeep, cloneFunc);
-
-    case symbolTag:
-      return cloneSymbol(object);
-  }
-}
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  length = length == null ? MAX_SAFE_INTEGER : length;
-  return !!length &&
-    (typeof value == 'number' || reIsUint.test(value)) &&
-    (value > -1 && value % 1 == 0 && value < length);
-}
-
-/**
- * Checks if `value` is suitable for use as unique object key.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
-function isKeyable(value) {
-  var type = typeof value;
-  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
-    ? (value !== '__proto__')
-    : (value === null);
-}
-
-/**
- * Checks if `func` has its source masked.
- *
- * @private
- * @param {Function} func The function to check.
- * @returns {boolean} Returns `true` if `func` is masked, else `false`.
- */
-function isMasked(func) {
-  return !!maskSrcKey && (maskSrcKey in func);
-}
-
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
-function isPrototype(value) {
-  var Ctor = value && value.constructor,
-      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
-
-  return value === proto;
-}
-
-/**
- * Converts `func` to its source code.
- *
- * @private
- * @param {Function} func The function to process.
- * @returns {string} Returns the source code.
- */
-function toSource(func) {
-  if (func != null) {
-    try {
-      return funcToString.call(func);
-    } catch (e) {}
-    try {
-      return (func + '');
-    } catch (e) {}
-  }
-  return '';
-}
-
-/**
- * This method is like `_.clone` except that it recursively clones `value`.
- *
- * @static
- * @memberOf _
- * @since 1.0.0
- * @category Lang
- * @param {*} value The value to recursively clone.
- * @returns {*} Returns the deep cloned value.
- * @see _.clone
- * @example
- *
- * var objects = [{ 'a': 1 }, { 'b': 2 }];
- *
- * var deep = _.cloneDeep(objects);
- * console.log(deep[0] === objects[0]);
- * // => false
- */
-function cloneDeep(value) {
-  return baseClone(value, true, true);
-}
-
-/**
- * Performs a
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * comparison between two values to determine if they are equivalent.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.eq(object, object);
- * // => true
- *
- * _.eq(object, other);
- * // => false
- *
- * _.eq('a', 'a');
- * // => true
- *
- * _.eq('a', Object('a'));
- * // => false
- *
- * _.eq(NaN, NaN);
- * // => true
- */
-function eq(value, other) {
-  return value === other || (value !== value && other !== other);
-}
-
-/**
- * Checks if `value` is likely an `arguments` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
-function isArguments(value) {
-  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
-  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
-    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
-}
-
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
-var isArray = Array.isArray;
-
-/**
- * Checks if `value` is array-like. A value is considered array-like if it's
- * not a function and has a `value.length` that's an integer greater than or
- * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- * @example
- *
- * _.isArrayLike([1, 2, 3]);
- * // => true
- *
- * _.isArrayLike(document.body.children);
- * // => true
- *
- * _.isArrayLike('abc');
- * // => true
- *
- * _.isArrayLike(_.noop);
- * // => false
- */
-function isArrayLike(value) {
-  return value != null && isLength(value.length) && !isFunction(value);
-}
-
-/**
- * This method is like `_.isArrayLike` except that it also checks if `value`
- * is an object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array-like object,
- *  else `false`.
- * @example
- *
- * _.isArrayLikeObject([1, 2, 3]);
- * // => true
- *
- * _.isArrayLikeObject(document.body.children);
- * // => true
- *
- * _.isArrayLikeObject('abc');
- * // => false
- *
- * _.isArrayLikeObject(_.noop);
- * // => false
- */
-function isArrayLikeObject(value) {
-  return isObjectLike(value) && isArrayLike(value);
-}
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-var isBuffer = nativeIsBuffer || stubFalse;
-
-/**
- * Checks if `value` is classified as a `Function` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- *
- * _.isFunction(/abc/);
- * // => false
- */
-function isFunction(value) {
-  // The use of `Object#toString` avoids issues with the `typeof` operator
-  // in Safari 8-9 which returns 'object' for typed array and other constructors.
-  var tag = isObject(value) ? objectToString.call(value) : '';
-  return tag == funcTag || tag == genTag;
-}
-
-/**
- * Checks if `value` is a valid array-like length.
- *
- * **Note:** This method is loosely based on
- * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
- * @example
- *
- * _.isLength(3);
- * // => true
- *
- * _.isLength(Number.MIN_VALUE);
- * // => false
- *
- * _.isLength(Infinity);
- * // => false
- *
- * _.isLength('3');
- * // => false
- */
-function isLength(value) {
-  return typeof value == 'number' &&
-    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-}
-
-/**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(_.noop);
- * // => true
- *
- * _.isObject(null);
- * // => false
- */
-function isObject(value) {
-  var type = typeof value;
-  return !!value && (type == 'object' || type == 'function');
-}
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return !!value && typeof value == 'object';
-}
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys(object) {
-  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
-}
-
-/**
- * This method returns a new empty array.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {Array} Returns the new empty array.
- * @example
- *
- * var arrays = _.times(2, _.stubArray);
- *
- * console.log(arrays);
- * // => [[], []]
- *
- * console.log(arrays[0] === arrays[1]);
- * // => false
- */
-function stubArray() {
-  return [];
-}
-
-/**
- * This method returns `false`.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {boolean} Returns `false`.
- * @example
- *
- * _.times(2, _.stubFalse);
- * // => [false, false]
- */
-function stubFalse() {
-  return false;
-}
-
-module.exports = cloneDeep;
-
-},{}],"../node_modules/domql/src/utils/isObject.js":[function(require,module,exports) {
-'use strict'; // var isObject = arg => {
-//   return Object.prototype.toString
-//     .call(arg).indexOf('Object') !== -1
-// }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+exports.overwrite = exports.deepClone = exports.deepMerge = exports.map = exports.exec = exports.isObjectLike = exports.isArray = exports.isFunction = exports.isObject = void 0;
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var isObject = function isObject(arg) {
-  if (arg === null) {
-    return false;
-  }
-
-  return typeof arg === 'function' || _typeof(arg) === 'object';
+  return _typeof(arg) === 'object' && arg.constructor === Object;
 };
 
-var _default = isObject;
-exports.default = _default;
-},{}],"../node_modules/domql/src/utils/deepMerge.js":[function(require,module,exports) {
-'use strict';
+exports.isObject = isObject;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+var isFunction = function isFunction(arg) {
+  return typeof arg === 'function';
+};
 
-var _lodash = _interopRequireDefault(require("lodash.clonedeep"));
+exports.isFunction = isFunction;
 
-var _isObject = _interopRequireDefault(require("./isObject"));
+var isArray = function isArray(arg) {
+  return Array.isArray(arg);
+};
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+exports.isArray = isArray;
 
-var deepMerge = function deepMerge(obj, original) {
-  var cloneOriginal = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  original = cloneOriginal ? (0, _lodash.default)(original) : original;
+var isObjectLike = function isObjectLike(arg) {
+  if (arg === null) return false;
+  return _typeof(arg) === 'object';
+};
 
-  for (var e in original) {
-    var objProp = obj[e];
-    var originalProp = original[e];
+exports.isObjectLike = isObjectLike;
 
-    if (objProp === undefined) {
-      obj[e] = originalProp;
-    } else if ((0, _isObject.default)(objProp)) {
-      deepMerge(objProp, originalProp);
+var exec = function exec(param, element) {
+  if (isFunction(param)) return param(element);
+  return param;
+};
+
+exports.exec = exec;
+
+var map = function map(obj, extention, element) {
+  for (var e in extention) {
+    obj[e] = exec(extention[e], element);
+  }
+};
+
+exports.map = map;
+
+var deepMerge = function deepMerge(element, proto) {
+  for (var e in proto) {
+    var elementProp = element[e];
+    var protoProp = proto[e];
+
+    if (elementProp === undefined) {
+      element[e] = protoProp;
+    } else if (isObjectLike(elementProp) && isObjectLike(protoProp)) {
+      deepMerge(elementProp, protoProp);
     }
   }
 
-  return obj;
+  return element;
 };
 
-var _default = deepMerge;
-exports.default = _default;
-},{"lodash.clonedeep":"../node_modules/domql/node_modules/lodash.clonedeep/index.js","./isObject":"../node_modules/domql/src/utils/isObject.js"}],"../node_modules/domql/src/utils/overwrite.js":[function(require,module,exports) {
-'use strict';
+exports.deepMerge = deepMerge;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+var deepClone = function deepClone(obj) {
+  var o = {};
 
-var _isObject = _interopRequireDefault(require("./isObject"));
+  for (var prop in obj) {
+    var objProp = obj[prop];
+    if (_typeof(objProp) === 'object') o[prop] = deepClone(objProp);else o[prop] = objProp;
+  }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  return o;
+};
+
+exports.deepClone = deepClone;
 
 var overwrite = function overwrite(obj, params) {
   for (var e in params) {
     var objProp = obj[e];
     var paramsProp = params[e];
 
-    if ((0, _isObject.default)(objProp) && (0, _isObject.default)(paramsProp)) {
+    if (isObjectLike(objProp) && isObjectLike(paramsProp)) {
       overwrite(objProp, paramsProp);
-    } else obj[e] = paramsProp;
+    } else if (paramsProp) obj[e] = paramsProp;
   }
 
   return obj;
 };
 
-var _default = overwrite;
-exports.default = _default;
-},{"./isObject":"../node_modules/domql/src/utils/isObject.js"}],"../node_modules/domql/src/utils/index.js":[function(require,module,exports) {
+exports.overwrite = overwrite;
+},{}],"../node_modules/@rackai/domql/src/utils/report.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "map", {
-  enumerable: true,
-  get: function () {
-    return _map.default;
-  }
-});
-Object.defineProperty(exports, "browser", {
-  enumerable: true,
-  get: function () {
-    return _browser.default;
-  }
-});
-Object.defineProperty(exports, "set", {
-  enumerable: true,
-  get: function () {
-    return _set.default;
-  }
-});
-Object.defineProperty(exports, "deepMerge", {
-  enumerable: true,
-  get: function () {
-    return _deepMerge.default;
-  }
-});
-Object.defineProperty(exports, "isObject", {
-  enumerable: true,
-  get: function () {
-    return _isObject.default;
-  }
-});
-Object.defineProperty(exports, "overwrite", {
-  enumerable: true,
-  get: function () {
-    return _overwrite.default;
-  }
-});
-
-var _map = _interopRequireDefault(require("./map"));
-
-var _browser = _interopRequireDefault(require("./browser"));
-
-var _set = _interopRequireDefault(require("./set"));
-
-var _deepMerge = _interopRequireDefault(require("./deepMerge"));
-
-var _isObject = _interopRequireDefault(require("./isObject"));
-
-var _overwrite = _interopRequireDefault(require("./overwrite"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./map":"../node_modules/domql/src/utils/map.js","./browser":"../node_modules/domql/src/utils/browser.js","./set":"../node_modules/domql/src/utils/set.js","./deepMerge":"../node_modules/domql/src/utils/deepMerge.js","./isObject":"../node_modules/domql/src/utils/isObject.js","./overwrite":"../node_modules/domql/src/utils/overwrite.js"}],"../node_modules/domql/src/res/error.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+exports.report = exports.errors = void 0;
 var errors = {
   en: {
     DocumentNotDefined: {
       title: 'Document is undefined',
       description: 'To tweak with DOM, you should use browser.'
+    },
+    OverwriteToBuiltin: {
+      title: 'Overwriting to builtin method',
+      description: "Overwriting a builtin method in the global define is not possible, please choose different name"
     },
     BrowserNotDefined: {
       title: 'Can\'t recognize environment',
@@ -3236,43 +1011,109 @@ var errors = {
     }
   }
 };
+exports.errors = errors;
 
-var report = function report(err, arg, elem) {
+var report = function report(err, arg, element) {
   var currentLang = 'en';
   var errObj;
   if (err && typeof err === 'string') errObj = errors[currentLang][err];
-  throw console.error(arg, elem, err, errObj.title, errObj.description);
+  return new Error("\"".concat(err, "\", \"").concat(arg, "\"\n\n"), "".concat(errObj.description), element ? "\n\n".concat(element) : '');
 };
 
-var _default = report;
-exports.default = _default;
-},{}],"../node_modules/domql/src/element/nodes.js":[function(require,module,exports) {
+exports.report = report;
+},{}],"../node_modules/@rackai/domql/src/utils/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "isObject", {
+  enumerable: true,
+  get: function () {
+    return _object.isObject;
+  }
+});
+Object.defineProperty(exports, "isObjectLike", {
+  enumerable: true,
+  get: function () {
+    return _object.isObjectLike;
+  }
+});
+Object.defineProperty(exports, "isFunction", {
+  enumerable: true,
+  get: function () {
+    return _object.isFunction;
+  }
+});
+Object.defineProperty(exports, "isArray", {
+  enumerable: true,
+  get: function () {
+    return _object.isArray;
+  }
+});
+Object.defineProperty(exports, "exec", {
+  enumerable: true,
+  get: function () {
+    return _object.exec;
+  }
+});
+Object.defineProperty(exports, "map", {
+  enumerable: true,
+  get: function () {
+    return _object.map;
+  }
+});
+Object.defineProperty(exports, "deepMerge", {
+  enumerable: true,
+  get: function () {
+    return _object.deepMerge;
+  }
+});
+Object.defineProperty(exports, "deepClone", {
+  enumerable: true,
+  get: function () {
+    return _object.deepClone;
+  }
+});
+Object.defineProperty(exports, "overwrite", {
+  enumerable: true,
+  get: function () {
+    return _object.overwrite;
+  }
+});
+Object.defineProperty(exports, "set", {
+  enumerable: true,
+  get: function () {
+    return _object.set;
+  }
+});
+Object.defineProperty(exports, "report", {
+  enumerable: true,
+  get: function () {
+    return _report.report;
+  }
+});
+
+var _object = require("./object");
+
+var _report = require("./report");
+},{"./object":"../node_modules/@rackai/domql/src/utils/object.js","./report":"../node_modules/@rackai/domql/src/utils/report.js"}],"../node_modules/@rackai/domql/src/element/root.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _utils = _interopRequireDefault(require("../utils"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var _default = {
-  root: ['body', 'html'],
-  head: ['title', 'base', 'meta', 'style'],
-  body: ['string', 'fragment', 'a', 'abbr', 'acronym', 'address', 'applet', 'area', 'article', 'aside', 'audio', 'b', 'basefont', 'bdi', 'bdo', 'big', 'blockquote', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'frame', 'frameset', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hr', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'meter', 'nav', 'noframes', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strike', 'strong', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr', // SVG
-  'svg', 'path']
+  node: document ? document.body : (0, _utils.default)('DocumentNotDefined', document)
 };
 exports.default = _default;
-},{}],"../node_modules/domql/src/element/root.js":[function(require,module,exports) {
-'use strict'; // import err from '..'
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  node: document && document.body // || err('DocumentNotDefined', document)
-
-};
-exports.default = _default;
-},{}],"../node_modules/domql/src/element/tree.js":[function(require,module,exports) {
+},{"../utils":"../node_modules/@rackai/domql/src/utils/index.js"}],"../node_modules/@rackai/domql/src/element/tree.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3286,35 +1127,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = _root.default;
 exports.default = _default;
-},{"./root":"../node_modules/domql/src/element/root.js"}],"../node_modules/domql/src/event/can.js":[function(require,module,exports) {
+},{"./root":"../node_modules/@rackai/domql/src/element/root.js"}],"../node_modules/@rackai/domql/src/event/on.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-
-var _element = _interopRequireDefault(require("../element"));
-
-var _error = _interopRequireDefault(require("../res/error"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-  render: function render(element) {
-    var tag = element.tag || 'div';
-    var isValid = _element.default.nodes.body.indexOf(tag) > -1;
-    return isValid || (0, _error.default)('HTMLInvalidTag');
-  }
-};
-exports.default = _default;
-},{"../element":"../node_modules/domql/src/element/index.js","../res/error":"../node_modules/domql/src/res/error.js"}],"../node_modules/domql/src/event/on.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.load = exports.up = exports.move = exports.down = exports.change = exports.click = exports.render = exports.init = void 0;
+exports.input = exports.load = exports.keyUp = exports.keyDown = exports.mouseUp = exports.mouseMove = exports.mouseDown = exports.change = exports.click = exports.render = exports.init = void 0;
 
 var init = function init(param, element) {
   param(element);
@@ -3323,71 +1142,126 @@ var init = function init(param, element) {
 exports.init = init;
 
 var render = function render(param, element) {
-  param(element);
+  param(element, element.state);
 };
 
 exports.render = render;
 
 var click = function click(param, element) {
-  var node = element.node;
+  var node = element.node,
+      state = element.state;
   node.addEventListener('click', function (event) {
-    return param(event, element);
+    return param(event, element, state);
   }, true);
 };
 
 exports.click = click;
 
 var change = function change(param, element) {
-  var node = element.node;
+  var node = element.node,
+      state = element.state;
   node.addEventListener('change', function (event) {
-    return param(event, element);
+    return param(event, element, state);
   }, true);
 };
 
 exports.change = change;
 
-var down = function down(param, element) {
-  var node = element.node;
+var mouseDown = function mouseDown(param, element) {
+  var node = element.node,
+      state = element.state;
   node.addEventListener('mousedown', function (event) {
-    return param(event, element);
+    return param(event, element, state);
   }, true);
 };
 
-exports.down = down;
+exports.mouseDown = mouseDown;
 
-var move = function move(param, element) {
-  var node = element.node;
+var mouseMove = function mouseMove(param, element) {
+  var node = element.node,
+      state = element.state;
   node.addEventListener('mousemove', function (event) {
-    return param(event, element);
+    return param(event, element, state);
   }, true);
 };
 
-exports.move = move;
+exports.mouseMove = mouseMove;
 
-var up = function up(param, element) {
-  var node = element.node;
+var mouseUp = function mouseUp(param, element) {
+  var node = element.node,
+      state = element.state;
   node.addEventListener('mouseup', function (event) {
-    return param(event, element);
+    return param(event, element, state);
   }, true);
 };
 
-exports.up = up;
+exports.mouseUp = mouseUp;
+
+var keyDown = function keyDown(param, element) {
+  var node = element.node,
+      state = element.state;
+  node.addEventListener('keydown', function (event) {
+    return param(event, element, state);
+  }, true);
+};
+
+exports.keyDown = keyDown;
+
+var keyUp = function keyUp(param, element) {
+  var node = element.node,
+      state = element.state;
+  node.addEventListener('keyup', function (event) {
+    return param(event, element, state);
+  }, true);
+};
+
+exports.keyUp = keyUp;
 
 var load = function load(param, element) {
-  var node = element.node;
+  var node = element.node,
+      state = element.state;
   node.addEventListener('load', function (event) {
-    return param(event, element);
+    return param(event, element, state);
   }, true);
 };
 
 exports.load = load;
-},{}],"../node_modules/domql/src/event/is.js":[function(require,module,exports) {
+
+var input = function input(param, element) {
+  var node = element.node,
+      state = element.state;
+  node.addEventListener('input', function (event) {
+    return param(event, element, state);
+  }, true);
+};
+
+exports.input = input;
+},{}],"../node_modules/@rackai/domql/src/event/can.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.render = void 0;
+
+var _element = require("../element");
+
+var _utils = require("../utils");
+
+var render = function render(element) {
+  var tag = element.tag || 'div';
+  var isValid = _element.nodes.body.indexOf(tag) > -1;
+  return isValid || (0, _utils.report)('HTMLInvalidTag');
+};
+
+exports.render = render;
+},{"../element":"../node_modules/@rackai/domql/src/element/index.js","../utils":"../node_modules/@rackai/domql/src/utils/index.js"}],"../node_modules/@rackai/domql/src/event/is.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.node = void 0;
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3397,43 +1271,31 @@ var node = function node(_node) {
   return _typeof(Node) === 'object' ? _node instanceof Node : _node && _typeof(_node) === 'object' && typeof _node.nodeType === 'number' && typeof _node.tag === 'string';
 };
 
-var element = function element(_element) {
-  var _window2 = window,
-      HTMLElement = _window2.HTMLElement;
-  return _typeof(HTMLElement) === 'object' ? _element instanceof HTMLElement : _element && _typeof(_element) === 'object' && _element !== null && _element.nodeType === 1 && typeof _element.tag === 'string';
-};
-
-var _default = {
-  node: node,
-  element: element
-};
-exports.default = _default;
-},{}],"../node_modules/domql/src/event/store.js":[function(require,module,exports) {
+exports.node = node;
+},{}],"../node_modules/@rackai/domql/src/event/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-var _default = {};
-exports.default = _default;
-},{}],"../node_modules/domql/src/event/render.js":[function(require,module,exports) {
-'use strict';
+exports.is = exports.can = exports.on = void 0;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+var on = _interopRequireWildcard(require("./on"));
 
-var render = function render(element) {
-  var parent = element.parent;
-  var node = element.node;
-  console.log(parent, node);
-};
+exports.on = on;
 
-var _default = render;
-exports.default = _default;
-},{}],"../node_modules/domql/src/event/index.js":[function(require,module,exports) {
+var can = _interopRequireWildcard(require("./can"));
+
+exports.can = can;
+
+var is = _interopRequireWildcard(require("./is"));
+
+exports.is = is;
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+},{"./on":"../node_modules/@rackai/domql/src/event/on.js","./can":"../node_modules/@rackai/domql/src/event/can.js","./is":"../node_modules/@rackai/domql/src/event/is.js"}],"../node_modules/@rackai/domql/src/element/cache.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3441,37 +1303,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _can = _interopRequireDefault(require("./can"));
+var _event = require("../event");
 
-var _on = _interopRequireDefault(require("./on"));
-
-var _is = _interopRequireDefault(require("./is"));
-
-var _store = _interopRequireDefault(require("./store"));
-
-var _render = _interopRequireDefault(require("./render"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-  can: _can.default,
-  on: _on.default,
-  is: _is.default,
-  store: _store.default,
-  render: _render.default
-};
-exports.default = _default;
-},{"./can":"../node_modules/domql/src/event/can.js","./on":"../node_modules/domql/src/event/on.js","./is":"../node_modules/domql/src/event/is.js","./store":"../node_modules/domql/src/event/store.js","./render":"../node_modules/domql/src/event/render.js"}],"../node_modules/domql/src/element/cacheNode.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _event = _interopRequireDefault(require("../event"));
-
-var _error = _interopRequireDefault(require("../res/error"));
+var _utils = require("../utils");
 
 var _nodes = _interopRequireDefault(require("./nodes"));
 
@@ -3505,8 +1339,8 @@ var _default = function _default(element) {
 
   element.tag = tag;
 
-  if (!_event.default.can.render(element)) {
-    return (0, _error.default)('HTMLInvalidTag');
+  if (!_event.can.render(element)) {
+    return (0, _utils.report)('HTMLInvalidTag');
   }
 
   var cachedTag = cachedElements[tag];
@@ -3517,7 +1351,7 @@ var _default = function _default(element) {
 };
 
 exports.default = _default;
-},{"../event":"../node_modules/domql/src/event/index.js","../res/error":"../node_modules/domql/src/res/error.js","./nodes":"../node_modules/domql/src/element/nodes.js"}],"../node_modules/domql/src/element/params/attr.js":[function(require,module,exports) {
+},{"../event":"../node_modules/@rackai/domql/src/event/index.js","../utils":"../node_modules/@rackai/domql/src/utils/index.js","./nodes":"../node_modules/@rackai/domql/src/element/nodes.js"}],"../node_modules/@rackai/domql/src/element/params/attr.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3525,11 +1359,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _error = _interopRequireDefault(require("../../res/error"));
-
-var _exec = _interopRequireDefault(require("./exec"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _utils = require("../../utils");
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3538,18 +1368,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
  */
 var _default = function _default(params, element, node) {
   if (params) {
-    if (!(_typeof(params) === 'object')) (0, _error.default)('HTMLInvalidAttr', params);
+    if (!(_typeof(params) === 'object')) (0, _utils.report)('HTMLInvalidAttr', params);
 
     for (var attr in params) {
       // if (!node) node = element.node
-      var val = (0, _exec.default)(params[attr], element);
+      var val = (0, _utils.exec)(params[attr], element);
       if (val) node.setAttribute(attr, val);else node.removeAttribute(attr);
     }
   }
 };
 
 exports.default = _default;
-},{"../../res/error":"../node_modules/domql/src/res/error.js","./exec":"../node_modules/domql/src/element/params/exec.js"}],"../node_modules/domql/src/element/params/classList.js":[function(require,module,exports) {
+},{"../../utils":"../node_modules/@rackai/domql/src/utils/index.js"}],"../node_modules/@rackai/domql/src/element/params/classList.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3557,18 +1387,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _exec = _interopRequireDefault(require("./exec"));
+var _utils = require("../../utils");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import { isObject } from '../../utils'
+// stringifies class object
 var classify = function classify(obj, element) {
   var className = '';
 
   for (var item in obj) {
     var param = obj[item];
     if (typeof param === 'boolean' && param) className += " ".concat(item);else if (typeof param === 'string') className += " ".concat(param);else if (typeof param === 'function') {
-      className += " ".concat((0, _exec.default)(param, element));
+      className += " ".concat((0, _utils.exec)(param, element));
     }
   }
 
@@ -3591,7 +1419,7 @@ var classList = function classList(params, element) {
 
 var _default = classList;
 exports.default = _default;
-},{"./exec":"../node_modules/domql/src/element/params/exec.js"}],"../node_modules/domql/src/element/set.js":[function(require,module,exports) {
+},{"../../utils":"../node_modules/@rackai/domql/src/utils/index.js"}],"../node_modules/@rackai/domql/src/element/set.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3622,7 +1450,7 @@ var set = function set(params, enter, leave) {
 
 var _default = set;
 exports.default = _default;
-},{"./create":"../node_modules/domql/src/element/create.js"}],"../node_modules/domql/src/element/params/content.js":[function(require,module,exports) {
+},{"./create":"../node_modules/@rackai/domql/src/element/create.js"}],"../node_modules/@rackai/domql/src/element/params/content.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3645,7 +1473,7 @@ var _default = function _default(param, element, node) {
 };
 
 exports.default = _default;
-},{"../set":"../node_modules/domql/src/element/set.js"}],"../node_modules/domql/src/element/params/dataset.js":[function(require,module,exports) {
+},{"../set":"../node_modules/@rackai/domql/src/element/set.js"}],"../node_modules/@rackai/domql/src/element/params/data.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3653,7 +1481,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _error = _interopRequireDefault(require("../../res/error"));
+var _report = _interopRequireDefault(require("../../utils/report"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3665,7 +1493,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
  */
 var _default = function _default(params, element, node) {
   if (params && params.showOnNode) {
-    if (!(_typeof(params) === 'object')) (0, _error.default)('HTMLInvalidData', params); // Apply data params on node
+    if (!(_typeof(params) === 'object')) (0, _report.default)('HTMLInvalidData', params); // Apply data params on node
 
     for (var dataset in params) {
       if (dataset !== 'showOnNode') {
@@ -3676,7 +1504,7 @@ var _default = function _default(params, element, node) {
 };
 
 exports.default = _default;
-},{"../../res/error":"../node_modules/domql/src/res/error.js"}],"../node_modules/domql/src/element/params/html.js":[function(require,module,exports) {
+},{"../../utils/report":"../node_modules/@rackai/domql/src/utils/report.js"}],"../node_modules/@rackai/domql/src/element/params/html.js":[function(require,module,exports) {
 'use strict';
 /**
  * Appends raw HTML as content
@@ -3697,1733 +1525,7 @@ var _default = function _default(param, element, node) {
 };
 
 exports.default = _default;
-},{}],"../node_modules/domql/node_modules/@emotion/sheet/dist/sheet.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.StyleSheet = void 0;
-
-/*
-
-Based off glamor's StyleSheet, thanks Sunil ❤️
-
-high performance StyleSheet for css-in-js systems
-
-- uses multiple style tags behind the scenes for millions of rules
-- uses `insertRule` for appending in production for *much* faster performance
-
-// usage
-
-import { StyleSheet } from '@emotion/sheet'
-
-let styleSheet = new StyleSheet({ key: '', container: document.head })
-
-styleSheet.insert('#box { border: 1px solid red; }')
-- appends a css rule into the stylesheet
-
-styleSheet.flush()
-- empties the stylesheet of all its contents
-
-*/
-// $FlowFixMe
-function sheetForTag(tag) {
-  if (tag.sheet) {
-    // $FlowFixMe
-    return tag.sheet;
-  } // this weirdness brought to you by firefox
-
-  /* istanbul ignore next */
-
-
-  for (var i = 0; i < document.styleSheets.length; i++) {
-    if (document.styleSheets[i].ownerNode === tag) {
-      // $FlowFixMe
-      return document.styleSheets[i];
-    }
-  }
-}
-
-function createStyleElement(options) {
-  var tag = document.createElement('style');
-  tag.setAttribute('data-emotion', options.key);
-
-  if (options.nonce !== undefined) {
-    tag.setAttribute('nonce', options.nonce);
-  }
-
-  tag.appendChild(document.createTextNode(''));
-  return tag;
-}
-
-var StyleSheet = /*#__PURE__*/function () {
-  function StyleSheet(options) {
-    this.isSpeedy = options.speedy === undefined ? "development" === 'production' : options.speedy;
-    this.tags = [];
-    this.ctr = 0;
-    this.nonce = options.nonce; // key is the value of the data-emotion attribute, it's used to identify different sheets
-
-    this.key = options.key;
-    this.container = options.container;
-    this.before = null;
-  }
-
-  var _proto = StyleSheet.prototype;
-
-  _proto.insert = function insert(rule) {
-    // the max length is how many rules we have per style tag, it's 65000 in speedy mode
-    // it's 1 in dev because we insert source maps that map a single rule to a location
-    // and you can only have one source map per style tag
-    if (this.ctr % (this.isSpeedy ? 65000 : 1) === 0) {
-      var _tag = createStyleElement(this);
-
-      var before;
-
-      if (this.tags.length === 0) {
-        before = this.before;
-      } else {
-        before = this.tags[this.tags.length - 1].nextSibling;
-      }
-
-      this.container.insertBefore(_tag, before);
-      this.tags.push(_tag);
-    }
-
-    var tag = this.tags[this.tags.length - 1];
-
-    if (this.isSpeedy) {
-      var sheet = sheetForTag(tag);
-
-      try {
-        // this is a really hot path
-        // we check the second character first because having "i"
-        // as the second character will happen less often than
-        // having "@" as the first character
-        var isImportRule = rule.charCodeAt(1) === 105 && rule.charCodeAt(0) === 64; // this is the ultrafast version, works across browsers
-        // the big drawback is that the css won't be editable in devtools
-
-        sheet.insertRule(rule, // we need to insert @import rules before anything else
-        // otherwise there will be an error
-        // technically this means that the @import rules will
-        // _usually_(not always since there could be multiple style tags)
-        // be the first ones in prod and generally later in dev
-        // this shouldn't really matter in the real world though
-        // @import is generally only used for font faces from google fonts and etc.
-        // so while this could be technically correct then it would be slower and larger
-        // for a tiny bit of correctness that won't matter in the real world
-        isImportRule ? 0 : sheet.cssRules.length);
-      } catch (e) {
-        if ("development" !== 'production') {
-          console.warn("There was a problem inserting the following rule: \"" + rule + "\"", e);
-        }
-      }
-    } else {
-      tag.appendChild(document.createTextNode(rule));
-    }
-
-    this.ctr++;
-  };
-
-  _proto.flush = function flush() {
-    // $FlowFixMe
-    this.tags.forEach(function (tag) {
-      return tag.parentNode.removeChild(tag);
-    });
-    this.tags = [];
-    this.ctr = 0;
-  };
-
-  return StyleSheet;
-}();
-
-exports.StyleSheet = StyleSheet;
-},{}],"../node_modules/domql/node_modules/@emotion/stylis/dist/stylis.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function stylis_min(W) {
-  function M(d, c, e, h, a) {
-    for (var m = 0, b = 0, v = 0, n = 0, q, g, x = 0, K = 0, k, u = k = q = 0, l = 0, r = 0, I = 0, t = 0, B = e.length, J = B - 1, y, f = '', p = '', F = '', G = '', C; l < B;) {
-      g = e.charCodeAt(l);
-      l === J && 0 !== b + n + v + m && (0 !== b && (g = 47 === b ? 10 : 47), n = v = m = 0, B++, J++);
-
-      if (0 === b + n + v + m) {
-        if (l === J && (0 < r && (f = f.replace(N, '')), 0 < f.trim().length)) {
-          switch (g) {
-            case 32:
-            case 9:
-            case 59:
-            case 13:
-            case 10:
-              break;
-
-            default:
-              f += e.charAt(l);
-          }
-
-          g = 59;
-        }
-
-        switch (g) {
-          case 123:
-            f = f.trim();
-            q = f.charCodeAt(0);
-            k = 1;
-
-            for (t = ++l; l < B;) {
-              switch (g = e.charCodeAt(l)) {
-                case 123:
-                  k++;
-                  break;
-
-                case 125:
-                  k--;
-                  break;
-
-                case 47:
-                  switch (g = e.charCodeAt(l + 1)) {
-                    case 42:
-                    case 47:
-                      a: {
-                        for (u = l + 1; u < J; ++u) {
-                          switch (e.charCodeAt(u)) {
-                            case 47:
-                              if (42 === g && 42 === e.charCodeAt(u - 1) && l + 2 !== u) {
-                                l = u + 1;
-                                break a;
-                              }
-
-                              break;
-
-                            case 10:
-                              if (47 === g) {
-                                l = u + 1;
-                                break a;
-                              }
-
-                          }
-                        }
-
-                        l = u;
-                      }
-
-                  }
-
-                  break;
-
-                case 91:
-                  g++;
-
-                case 40:
-                  g++;
-
-                case 34:
-                case 39:
-                  for (; l++ < J && e.charCodeAt(l) !== g;) {}
-
-              }
-
-              if (0 === k) break;
-              l++;
-            }
-
-            k = e.substring(t, l);
-            0 === q && (q = (f = f.replace(ca, '').trim()).charCodeAt(0));
-
-            switch (q) {
-              case 64:
-                0 < r && (f = f.replace(N, ''));
-                g = f.charCodeAt(1);
-
-                switch (g) {
-                  case 100:
-                  case 109:
-                  case 115:
-                  case 45:
-                    r = c;
-                    break;
-
-                  default:
-                    r = O;
-                }
-
-                k = M(c, r, k, g, a + 1);
-                t = k.length;
-                0 < A && (r = X(O, f, I), C = H(3, k, r, c, D, z, t, g, a, h), f = r.join(''), void 0 !== C && 0 === (t = (k = C.trim()).length) && (g = 0, k = ''));
-                if (0 < t) switch (g) {
-                  case 115:
-                    f = f.replace(da, ea);
-
-                  case 100:
-                  case 109:
-                  case 45:
-                    k = f + '{' + k + '}';
-                    break;
-
-                  case 107:
-                    f = f.replace(fa, '$1 $2');
-                    k = f + '{' + k + '}';
-                    k = 1 === w || 2 === w && L('@' + k, 3) ? '@-webkit-' + k + '@' + k : '@' + k;
-                    break;
-
-                  default:
-                    k = f + k, 112 === h && (k = (p += k, ''));
-                } else k = '';
-                break;
-
-              default:
-                k = M(c, X(c, f, I), k, h, a + 1);
-            }
-
-            F += k;
-            k = I = r = u = q = 0;
-            f = '';
-            g = e.charCodeAt(++l);
-            break;
-
-          case 125:
-          case 59:
-            f = (0 < r ? f.replace(N, '') : f).trim();
-            if (1 < (t = f.length)) switch (0 === u && (q = f.charCodeAt(0), 45 === q || 96 < q && 123 > q) && (t = (f = f.replace(' ', ':')).length), 0 < A && void 0 !== (C = H(1, f, c, d, D, z, p.length, h, a, h)) && 0 === (t = (f = C.trim()).length) && (f = '\x00\x00'), q = f.charCodeAt(0), g = f.charCodeAt(1), q) {
-              case 0:
-                break;
-
-              case 64:
-                if (105 === g || 99 === g) {
-                  G += f + e.charAt(l);
-                  break;
-                }
-
-              default:
-                58 !== f.charCodeAt(t - 1) && (p += P(f, q, g, f.charCodeAt(2)));
-            }
-            I = r = u = q = 0;
-            f = '';
-            g = e.charCodeAt(++l);
-        }
-      }
-
-      switch (g) {
-        case 13:
-        case 10:
-          47 === b ? b = 0 : 0 === 1 + q && 107 !== h && 0 < f.length && (r = 1, f += '\x00');
-          0 < A * Y && H(0, f, c, d, D, z, p.length, h, a, h);
-          z = 1;
-          D++;
-          break;
-
-        case 59:
-        case 125:
-          if (0 === b + n + v + m) {
-            z++;
-            break;
-          }
-
-        default:
-          z++;
-          y = e.charAt(l);
-
-          switch (g) {
-            case 9:
-            case 32:
-              if (0 === n + m + b) switch (x) {
-                case 44:
-                case 58:
-                case 9:
-                case 32:
-                  y = '';
-                  break;
-
-                default:
-                  32 !== g && (y = ' ');
-              }
-              break;
-
-            case 0:
-              y = '\\0';
-              break;
-
-            case 12:
-              y = '\\f';
-              break;
-
-            case 11:
-              y = '\\v';
-              break;
-
-            case 38:
-              0 === n + b + m && (r = I = 1, y = '\f' + y);
-              break;
-
-            case 108:
-              if (0 === n + b + m + E && 0 < u) switch (l - u) {
-                case 2:
-                  112 === x && 58 === e.charCodeAt(l - 3) && (E = x);
-
-                case 8:
-                  111 === K && (E = K);
-              }
-              break;
-
-            case 58:
-              0 === n + b + m && (u = l);
-              break;
-
-            case 44:
-              0 === b + v + n + m && (r = 1, y += '\r');
-              break;
-
-            case 34:
-            case 39:
-              0 === b && (n = n === g ? 0 : 0 === n ? g : n);
-              break;
-
-            case 91:
-              0 === n + b + v && m++;
-              break;
-
-            case 93:
-              0 === n + b + v && m--;
-              break;
-
-            case 41:
-              0 === n + b + m && v--;
-              break;
-
-            case 40:
-              if (0 === n + b + m) {
-                if (0 === q) switch (2 * x + 3 * K) {
-                  case 533:
-                    break;
-
-                  default:
-                    q = 1;
-                }
-                v++;
-              }
-
-              break;
-
-            case 64:
-              0 === b + v + n + m + u + k && (k = 1);
-              break;
-
-            case 42:
-            case 47:
-              if (!(0 < n + m + v)) switch (b) {
-                case 0:
-                  switch (2 * g + 3 * e.charCodeAt(l + 1)) {
-                    case 235:
-                      b = 47;
-                      break;
-
-                    case 220:
-                      t = l, b = 42;
-                  }
-
-                  break;
-
-                case 42:
-                  47 === g && 42 === x && t + 2 !== l && (33 === e.charCodeAt(t + 2) && (p += e.substring(t, l + 1)), y = '', b = 0);
-              }
-          }
-
-          0 === b && (f += y);
-      }
-
-      K = x;
-      x = g;
-      l++;
-    }
-
-    t = p.length;
-
-    if (0 < t) {
-      r = c;
-      if (0 < A && (C = H(2, p, r, d, D, z, t, h, a, h), void 0 !== C && 0 === (p = C).length)) return G + p + F;
-      p = r.join(',') + '{' + p + '}';
-
-      if (0 !== w * E) {
-        2 !== w || L(p, 2) || (E = 0);
-
-        switch (E) {
-          case 111:
-            p = p.replace(ha, ':-moz-$1') + p;
-            break;
-
-          case 112:
-            p = p.replace(Q, '::-webkit-input-$1') + p.replace(Q, '::-moz-$1') + p.replace(Q, ':-ms-input-$1') + p;
-        }
-
-        E = 0;
-      }
-    }
-
-    return G + p + F;
-  }
-
-  function X(d, c, e) {
-    var h = c.trim().split(ia);
-    c = h;
-    var a = h.length,
-        m = d.length;
-
-    switch (m) {
-      case 0:
-      case 1:
-        var b = 0;
-
-        for (d = 0 === m ? '' : d[0] + ' '; b < a; ++b) {
-          c[b] = Z(d, c[b], e).trim();
-        }
-
-        break;
-
-      default:
-        var v = b = 0;
-
-        for (c = []; b < a; ++b) {
-          for (var n = 0; n < m; ++n) {
-            c[v++] = Z(d[n] + ' ', h[b], e).trim();
-          }
-        }
-
-    }
-
-    return c;
-  }
-
-  function Z(d, c, e) {
-    var h = c.charCodeAt(0);
-    33 > h && (h = (c = c.trim()).charCodeAt(0));
-
-    switch (h) {
-      case 38:
-        return c.replace(F, '$1' + d.trim());
-
-      case 58:
-        return d.trim() + c.replace(F, '$1' + d.trim());
-
-      default:
-        if (0 < 1 * e && 0 < c.indexOf('\f')) return c.replace(F, (58 === d.charCodeAt(0) ? '' : '$1') + d.trim());
-    }
-
-    return d + c;
-  }
-
-  function P(d, c, e, h) {
-    var a = d + ';',
-        m = 2 * c + 3 * e + 4 * h;
-
-    if (944 === m) {
-      d = a.indexOf(':', 9) + 1;
-      var b = a.substring(d, a.length - 1).trim();
-      b = a.substring(0, d).trim() + b + ';';
-      return 1 === w || 2 === w && L(b, 1) ? '-webkit-' + b + b : b;
-    }
-
-    if (0 === w || 2 === w && !L(a, 1)) return a;
-
-    switch (m) {
-      case 1015:
-        return 97 === a.charCodeAt(10) ? '-webkit-' + a + a : a;
-
-      case 951:
-        return 116 === a.charCodeAt(3) ? '-webkit-' + a + a : a;
-
-      case 963:
-        return 110 === a.charCodeAt(5) ? '-webkit-' + a + a : a;
-
-      case 1009:
-        if (100 !== a.charCodeAt(4)) break;
-
-      case 969:
-      case 942:
-        return '-webkit-' + a + a;
-
-      case 978:
-        return '-webkit-' + a + '-moz-' + a + a;
-
-      case 1019:
-      case 983:
-        return '-webkit-' + a + '-moz-' + a + '-ms-' + a + a;
-
-      case 883:
-        if (45 === a.charCodeAt(8)) return '-webkit-' + a + a;
-        if (0 < a.indexOf('image-set(', 11)) return a.replace(ja, '$1-webkit-$2') + a;
-        break;
-
-      case 932:
-        if (45 === a.charCodeAt(4)) switch (a.charCodeAt(5)) {
-          case 103:
-            return '-webkit-box-' + a.replace('-grow', '') + '-webkit-' + a + '-ms-' + a.replace('grow', 'positive') + a;
-
-          case 115:
-            return '-webkit-' + a + '-ms-' + a.replace('shrink', 'negative') + a;
-
-          case 98:
-            return '-webkit-' + a + '-ms-' + a.replace('basis', 'preferred-size') + a;
-        }
-        return '-webkit-' + a + '-ms-' + a + a;
-
-      case 964:
-        return '-webkit-' + a + '-ms-flex-' + a + a;
-
-      case 1023:
-        if (99 !== a.charCodeAt(8)) break;
-        b = a.substring(a.indexOf(':', 15)).replace('flex-', '').replace('space-between', 'justify');
-        return '-webkit-box-pack' + b + '-webkit-' + a + '-ms-flex-pack' + b + a;
-
-      case 1005:
-        return ka.test(a) ? a.replace(aa, ':-webkit-') + a.replace(aa, ':-moz-') + a : a;
-
-      case 1e3:
-        b = a.substring(13).trim();
-        c = b.indexOf('-') + 1;
-
-        switch (b.charCodeAt(0) + b.charCodeAt(c)) {
-          case 226:
-            b = a.replace(G, 'tb');
-            break;
-
-          case 232:
-            b = a.replace(G, 'tb-rl');
-            break;
-
-          case 220:
-            b = a.replace(G, 'lr');
-            break;
-
-          default:
-            return a;
-        }
-
-        return '-webkit-' + a + '-ms-' + b + a;
-
-      case 1017:
-        if (-1 === a.indexOf('sticky', 9)) break;
-
-      case 975:
-        c = (a = d).length - 10;
-        b = (33 === a.charCodeAt(c) ? a.substring(0, c) : a).substring(d.indexOf(':', 7) + 1).trim();
-
-        switch (m = b.charCodeAt(0) + (b.charCodeAt(7) | 0)) {
-          case 203:
-            if (111 > b.charCodeAt(8)) break;
-
-          case 115:
-            a = a.replace(b, '-webkit-' + b) + ';' + a;
-            break;
-
-          case 207:
-          case 102:
-            a = a.replace(b, '-webkit-' + (102 < m ? 'inline-' : '') + 'box') + ';' + a.replace(b, '-webkit-' + b) + ';' + a.replace(b, '-ms-' + b + 'box') + ';' + a;
-        }
-
-        return a + ';';
-
-      case 938:
-        if (45 === a.charCodeAt(5)) switch (a.charCodeAt(6)) {
-          case 105:
-            return b = a.replace('-items', ''), '-webkit-' + a + '-webkit-box-' + b + '-ms-flex-' + b + a;
-
-          case 115:
-            return '-webkit-' + a + '-ms-flex-item-' + a.replace(ba, '') + a;
-
-          default:
-            return '-webkit-' + a + '-ms-flex-line-pack' + a.replace('align-content', '').replace(ba, '') + a;
-        }
-        break;
-
-      case 973:
-      case 989:
-        if (45 !== a.charCodeAt(3) || 122 === a.charCodeAt(4)) break;
-
-      case 931:
-      case 953:
-        if (!0 === la.test(d)) return 115 === (b = d.substring(d.indexOf(':') + 1)).charCodeAt(0) ? P(d.replace('stretch', 'fill-available'), c, e, h).replace(':fill-available', ':stretch') : a.replace(b, '-webkit-' + b) + a.replace(b, '-moz-' + b.replace('fill-', '')) + a;
-        break;
-
-      case 962:
-        if (a = '-webkit-' + a + (102 === a.charCodeAt(5) ? '-ms-' + a : '') + a, 211 === e + h && 105 === a.charCodeAt(13) && 0 < a.indexOf('transform', 10)) return a.substring(0, a.indexOf(';', 27) + 1).replace(ma, '$1-webkit-$2') + a;
-    }
-
-    return a;
-  }
-
-  function L(d, c) {
-    var e = d.indexOf(1 === c ? ':' : '{'),
-        h = d.substring(0, 3 !== c ? e : 10);
-    e = d.substring(e + 1, d.length - 1);
-    return R(2 !== c ? h : h.replace(na, '$1'), e, c);
-  }
-
-  function ea(d, c) {
-    var e = P(c, c.charCodeAt(0), c.charCodeAt(1), c.charCodeAt(2));
-    return e !== c + ';' ? e.replace(oa, ' or ($1)').substring(4) : '(' + c + ')';
-  }
-
-  function H(d, c, e, h, a, m, b, v, n, q) {
-    for (var g = 0, x = c, w; g < A; ++g) {
-      switch (w = S[g].call(B, d, x, e, h, a, m, b, v, n, q)) {
-        case void 0:
-        case !1:
-        case !0:
-        case null:
-          break;
-
-        default:
-          x = w;
-      }
-    }
-
-    if (x !== c) return x;
-  }
-
-  function T(d) {
-    switch (d) {
-      case void 0:
-      case null:
-        A = S.length = 0;
-        break;
-
-      default:
-        if ('function' === typeof d) S[A++] = d;else if ('object' === typeof d) for (var c = 0, e = d.length; c < e; ++c) {
-          T(d[c]);
-        } else Y = !!d | 0;
-    }
-
-    return T;
-  }
-
-  function U(d) {
-    d = d.prefix;
-    void 0 !== d && (R = null, d ? 'function' !== typeof d ? w = 1 : (w = 2, R = d) : w = 0);
-    return U;
-  }
-
-  function B(d, c) {
-    var e = d;
-    33 > e.charCodeAt(0) && (e = e.trim());
-    V = e;
-    e = [V];
-
-    if (0 < A) {
-      var h = H(-1, c, e, e, D, z, 0, 0, 0, 0);
-      void 0 !== h && 'string' === typeof h && (c = h);
-    }
-
-    var a = M(O, e, c, 0, 0);
-    0 < A && (h = H(-2, a, e, e, D, z, a.length, 0, 0, 0), void 0 !== h && (a = h));
-    V = '';
-    E = 0;
-    z = D = 1;
-    return a;
-  }
-
-  var ca = /^\0+/g,
-      N = /[\0\r\f]/g,
-      aa = /: */g,
-      ka = /zoo|gra/,
-      ma = /([,: ])(transform)/g,
-      ia = /,\r+?/g,
-      F = /([\t\r\n ])*\f?&/g,
-      fa = /@(k\w+)\s*(\S*)\s*/,
-      Q = /::(place)/g,
-      ha = /:(read-only)/g,
-      G = /[svh]\w+-[tblr]{2}/,
-      da = /\(\s*(.*)\s*\)/g,
-      oa = /([\s\S]*?);/g,
-      ba = /-self|flex-/g,
-      na = /[^]*?(:[rp][el]a[\w-]+)[^]*/,
-      la = /stretch|:\s*\w+\-(?:conte|avail)/,
-      ja = /([^-])(image-set\()/,
-      z = 1,
-      D = 1,
-      E = 0,
-      w = 1,
-      O = [],
-      S = [],
-      A = 0,
-      R = null,
-      Y = 0,
-      V = '';
-  B.use = T;
-  B.set = U;
-  void 0 !== W && U(W);
-  return B;
-}
-
-var _default = stylis_min;
-exports.default = _default;
-},{}],"../node_modules/domql/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var weakMemoize = function weakMemoize(func) {
-  // $FlowFixMe flow doesn't include all non-primitive types as allowed for weakmaps
-  var cache = new WeakMap();
-  return function (arg) {
-    if (cache.has(arg)) {
-      // $FlowFixMe
-      return cache.get(arg);
-    }
-
-    var ret = func(arg);
-    cache.set(arg, ret);
-    return ret;
-  };
-};
-
-var _default = weakMemoize;
-exports.default = _default;
-},{}],"../node_modules/domql/node_modules/@emotion/cache/dist/cache.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _sheet = require("@emotion/sheet");
-
-var _stylis = _interopRequireDefault(require("@emotion/stylis"));
-
-require("@emotion/weak-memoize");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// https://github.com/thysultan/stylis.js/tree/master/plugins/rule-sheet
-// inlined to avoid umd wrapper and peerDep warnings/installing stylis
-// since we use stylis after closure compiler
-var delimiter = '/*|*/';
-var needle = delimiter + '}';
-
-function toSheet(block) {
-  if (block) {
-    Sheet.current.insert(block + '}');
-  }
-}
-
-var Sheet = {
-  current: null
-};
-
-var ruleSheet = function ruleSheet(context, content, selectors, parents, line, column, length, ns, depth, at) {
-  switch (context) {
-    // property
-    case 1:
-      {
-        switch (content.charCodeAt(0)) {
-          case 64:
-            {
-              // @import
-              Sheet.current.insert(content + ';');
-              return '';
-            }
-          // charcode for l
-
-          case 108:
-            {
-              // charcode for b
-              // this ignores label
-              if (content.charCodeAt(2) === 98) {
-                return '';
-              }
-            }
-        }
-
-        break;
-      }
-    // selector
-
-    case 2:
-      {
-        if (ns === 0) return content + delimiter;
-        break;
-      }
-    // at-rule
-
-    case 3:
-      {
-        switch (ns) {
-          // @font-face, @page
-          case 102:
-          case 112:
-            {
-              Sheet.current.insert(selectors[0] + content);
-              return '';
-            }
-
-          default:
-            {
-              return content + (at === 0 ? delimiter : '');
-            }
-        }
-      }
-
-    case -2:
-      {
-        content.split(needle).forEach(toSheet);
-      }
-  }
-};
-
-var createCache = function createCache(options) {
-  if (options === undefined) options = {};
-  var key = options.key || 'css';
-  var stylisOptions;
-
-  if (options.prefix !== undefined) {
-    stylisOptions = {
-      prefix: options.prefix
-    };
-  }
-
-  var stylis = new _stylis.default(stylisOptions);
-
-  if ("development" !== 'production') {
-    // $FlowFixMe
-    if (/[^a-z-]/.test(key)) {
-      throw new Error("Emotion key must only contain lower case alphabetical characters and - but \"" + key + "\" was passed");
-    }
-  }
-
-  var inserted = {}; // $FlowFixMe
-
-  var container;
-  {
-    container = options.container || document.head;
-    var nodes = document.querySelectorAll("style[data-emotion-" + key + "]");
-    Array.prototype.forEach.call(nodes, function (node) {
-      var attrib = node.getAttribute("data-emotion-" + key); // $FlowFixMe
-
-      attrib.split(' ').forEach(function (id) {
-        inserted[id] = true;
-      });
-
-      if (node.parentNode !== container) {
-        container.appendChild(node);
-      }
-    });
-  }
-
-  var _insert;
-
-  {
-    stylis.use(options.stylisPlugins)(ruleSheet);
-
-    _insert = function insert(selector, serialized, sheet, shouldCache) {
-      var name = serialized.name;
-      Sheet.current = sheet;
-
-      if ("development" !== 'production' && serialized.map !== undefined) {
-        var map = serialized.map;
-        Sheet.current = {
-          insert: function insert(rule) {
-            sheet.insert(rule + map);
-          }
-        };
-      }
-
-      stylis(selector, serialized.styles);
-
-      if (shouldCache) {
-        cache.inserted[name] = true;
-      }
-    };
-  }
-
-  if ("development" !== 'production') {
-    // https://esbench.com/bench/5bf7371a4cd7e6009ef61d0a
-    var commentStart = /\/\*/g;
-    var commentEnd = /\*\//g;
-    stylis.use(function (context, content) {
-      switch (context) {
-        case -1:
-          {
-            while (commentStart.test(content)) {
-              commentEnd.lastIndex = commentStart.lastIndex;
-
-              if (commentEnd.test(content)) {
-                commentStart.lastIndex = commentEnd.lastIndex;
-                continue;
-              }
-
-              throw new Error('Your styles have an unterminated comment ("/*" without corresponding "*/").');
-            }
-
-            commentStart.lastIndex = 0;
-            break;
-          }
-      }
-    });
-    stylis.use(function (context, content, selectors) {
-      switch (context) {
-        case -1:
-          {
-            var flag = 'emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason';
-            var unsafePseudoClasses = content.match(/(:first|:nth|:nth-last)-child/g);
-
-            if (unsafePseudoClasses && cache.compat !== true) {
-              unsafePseudoClasses.forEach(function (unsafePseudoClass) {
-                var ignoreRegExp = new RegExp(unsafePseudoClass + ".*\\/\\* " + flag + " \\*\\/");
-                var ignore = ignoreRegExp.test(content);
-
-                if (unsafePseudoClass && !ignore) {
-                  console.error("The pseudo class \"" + unsafePseudoClass + "\" is potentially unsafe when doing server-side rendering. Try changing it to \"" + unsafePseudoClass.split('-child')[0] + "-of-type\".");
-                }
-              });
-            }
-
-            break;
-          }
-      }
-    });
-  }
-
-  var cache = {
-    key: key,
-    sheet: new _sheet.StyleSheet({
-      key: key,
-      container: container,
-      nonce: options.nonce,
-      speedy: options.speedy
-    }),
-    nonce: options.nonce,
-    inserted: inserted,
-    registered: {},
-    insert: _insert
-  };
-  return cache;
-};
-
-var _default = createCache;
-exports.default = _default;
-},{"@emotion/sheet":"../node_modules/domql/node_modules/@emotion/sheet/dist/sheet.browser.esm.js","@emotion/stylis":"../node_modules/domql/node_modules/@emotion/stylis/dist/stylis.browser.esm.js","@emotion/weak-memoize":"../node_modules/domql/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js"}],"../node_modules/domql/node_modules/@emotion/hash/dist/hash.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-/* eslint-disable */
-// Inspired by https://github.com/garycourt/murmurhash-js
-// Ported from https://github.com/aappleby/smhasher/blob/61a0530f28277f2e850bfc39600ce61d02b518de/src/MurmurHash2.cpp#L37-L86
-function murmur2(str) {
-  // 'm' and 'r' are mixing constants generated offline.
-  // They're not really 'magic', they just happen to work well.
-  // const m = 0x5bd1e995;
-  // const r = 24;
-  // Initialize the hash
-  var h = 0; // Mix 4 bytes at a time into the hash
-
-  var k,
-      i = 0,
-      len = str.length;
-
-  for (; len >= 4; ++i, len -= 4) {
-    k = str.charCodeAt(i) & 0xff | (str.charCodeAt(++i) & 0xff) << 8 | (str.charCodeAt(++i) & 0xff) << 16 | (str.charCodeAt(++i) & 0xff) << 24;
-    k =
-    /* Math.imul(k, m): */
-    (k & 0xffff) * 0x5bd1e995 + ((k >>> 16) * 0xe995 << 16);
-    k ^=
-    /* k >>> r: */
-    k >>> 24;
-    h =
-    /* Math.imul(k, m): */
-    (k & 0xffff) * 0x5bd1e995 + ((k >>> 16) * 0xe995 << 16) ^
-    /* Math.imul(h, m): */
-    (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
-  } // Handle the last few bytes of the input array
-
-
-  switch (len) {
-    case 3:
-      h ^= (str.charCodeAt(i + 2) & 0xff) << 16;
-
-    case 2:
-      h ^= (str.charCodeAt(i + 1) & 0xff) << 8;
-
-    case 1:
-      h ^= str.charCodeAt(i) & 0xff;
-      h =
-      /* Math.imul(h, m): */
-      (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
-  } // Do a few final mixes of the hash to ensure the last few
-  // bytes are well-incorporated.
-
-
-  h ^= h >>> 13;
-  h =
-  /* Math.imul(h, m): */
-  (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
-  return ((h ^ h >>> 15) >>> 0).toString(36);
-}
-
-var _default = murmur2;
-exports.default = _default;
-},{}],"../node_modules/domql/node_modules/@emotion/unitless/dist/unitless.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var unitlessKeys = {
-  animationIterationCount: 1,
-  borderImageOutset: 1,
-  borderImageSlice: 1,
-  borderImageWidth: 1,
-  boxFlex: 1,
-  boxFlexGroup: 1,
-  boxOrdinalGroup: 1,
-  columnCount: 1,
-  columns: 1,
-  flex: 1,
-  flexGrow: 1,
-  flexPositive: 1,
-  flexShrink: 1,
-  flexNegative: 1,
-  flexOrder: 1,
-  gridRow: 1,
-  gridRowEnd: 1,
-  gridRowSpan: 1,
-  gridRowStart: 1,
-  gridColumn: 1,
-  gridColumnEnd: 1,
-  gridColumnSpan: 1,
-  gridColumnStart: 1,
-  msGridRow: 1,
-  msGridRowSpan: 1,
-  msGridColumn: 1,
-  msGridColumnSpan: 1,
-  fontWeight: 1,
-  lineHeight: 1,
-  opacity: 1,
-  order: 1,
-  orphans: 1,
-  tabSize: 1,
-  widows: 1,
-  zIndex: 1,
-  zoom: 1,
-  WebkitLineClamp: 1,
-  // SVG-related properties
-  fillOpacity: 1,
-  floodOpacity: 1,
-  stopOpacity: 1,
-  strokeDasharray: 1,
-  strokeDashoffset: 1,
-  strokeMiterlimit: 1,
-  strokeOpacity: 1,
-  strokeWidth: 1
-};
-var _default = unitlessKeys;
-exports.default = _default;
-},{}],"../node_modules/domql/node_modules/@emotion/memoize/dist/memoize.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function memoize(fn) {
-  var cache = {};
-  return function (arg) {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
-    return cache[arg];
-  };
-}
-
-var _default = memoize;
-exports.default = _default;
-},{}],"../node_modules/domql/node_modules/@emotion/serialize/dist/serialize.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.serializeStyles = void 0;
-
-var _hash = _interopRequireDefault(require("@emotion/hash"));
-
-var _unitless = _interopRequireDefault(require("@emotion/unitless"));
-
-var _memoize = _interopRequireDefault(require("@emotion/memoize"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
-var UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).";
-var hyphenateRegex = /[A-Z]|^ms/g;
-var animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g;
-
-var isCustomProperty = function isCustomProperty(property) {
-  return property.charCodeAt(1) === 45;
-};
-
-var isProcessableValue = function isProcessableValue(value) {
-  return value != null && typeof value !== 'boolean';
-};
-
-var processStyleName = (0, _memoize.default)(function (styleName) {
-  return isCustomProperty(styleName) ? styleName : styleName.replace(hyphenateRegex, '-$&').toLowerCase();
-});
-
-var processStyleValue = function processStyleValue(key, value) {
-  switch (key) {
-    case 'animation':
-    case 'animationName':
-      {
-        if (typeof value === 'string') {
-          return value.replace(animationRegex, function (match, p1, p2) {
-            cursor = {
-              name: p1,
-              styles: p2,
-              next: cursor
-            };
-            return p1;
-          });
-        }
-      }
-  }
-
-  if (_unitless.default[key] !== 1 && !isCustomProperty(key) && typeof value === 'number' && value !== 0) {
-    return value + 'px';
-  }
-
-  return value;
-};
-
-if ("development" !== 'production') {
-  var contentValuePattern = /(attr|calc|counters?|url)\(/;
-  var contentValues = ['normal', 'none', 'counter', 'open-quote', 'close-quote', 'no-open-quote', 'no-close-quote', 'initial', 'inherit', 'unset'];
-  var oldProcessStyleValue = processStyleValue;
-  var msPattern = /^-ms-/;
-  var hyphenPattern = /-(.)/g;
-  var hyphenatedCache = {};
-
-  processStyleValue = function processStyleValue(key, value) {
-    if (key === 'content') {
-      if (typeof value !== 'string' || contentValues.indexOf(value) === -1 && !contentValuePattern.test(value) && (value.charAt(0) !== value.charAt(value.length - 1) || value.charAt(0) !== '"' && value.charAt(0) !== "'")) {
-        console.error("You seem to be using a value for 'content' without quotes, try replacing it with `content: '\"" + value + "\"'`");
-      }
-    }
-
-    var processed = oldProcessStyleValue(key, value);
-
-    if (processed !== '' && !isCustomProperty(key) && key.indexOf('-') !== -1 && hyphenatedCache[key] === undefined) {
-      hyphenatedCache[key] = true;
-      console.error("Using kebab-case for css properties in objects is not supported. Did you mean " + key.replace(msPattern, 'ms-').replace(hyphenPattern, function (str, _char) {
-        return _char.toUpperCase();
-      }) + "?");
-    }
-
-    return processed;
-  };
-}
-
-var shouldWarnAboutInterpolatingClassNameFromCss = true;
-
-function handleInterpolation(mergedProps, registered, interpolation, couldBeSelectorInterpolation) {
-  if (interpolation == null) {
-    return '';
-  }
-
-  if (interpolation.__emotion_styles !== undefined) {
-    if ("development" !== 'production' && interpolation.toString() === 'NO_COMPONENT_SELECTOR') {
-      throw new Error('Component selectors can only be used in conjunction with babel-plugin-emotion.');
-    }
-
-    return interpolation;
-  }
-
-  switch (typeof interpolation) {
-    case 'boolean':
-      {
-        return '';
-      }
-
-    case 'object':
-      {
-        if (interpolation.anim === 1) {
-          cursor = {
-            name: interpolation.name,
-            styles: interpolation.styles,
-            next: cursor
-          };
-          return interpolation.name;
-        }
-
-        if (interpolation.styles !== undefined) {
-          var next = interpolation.next;
-
-          if (next !== undefined) {
-            // not the most efficient thing ever but this is a pretty rare case
-            // and there will be very few iterations of this generally
-            while (next !== undefined) {
-              cursor = {
-                name: next.name,
-                styles: next.styles,
-                next: cursor
-              };
-              next = next.next;
-            }
-          }
-
-          var styles = interpolation.styles + ";";
-
-          if ("development" !== 'production' && interpolation.map !== undefined) {
-            styles += interpolation.map;
-          }
-
-          return styles;
-        }
-
-        return createStringFromObject(mergedProps, registered, interpolation);
-      }
-
-    case 'function':
-      {
-        if (mergedProps !== undefined) {
-          var previousCursor = cursor;
-          var result = interpolation(mergedProps);
-          cursor = previousCursor;
-          return handleInterpolation(mergedProps, registered, result, couldBeSelectorInterpolation);
-        } else if ("development" !== 'production') {
-          console.error('Functions that are interpolated in css calls will be stringified.\n' + 'If you want to have a css call based on props, create a function that returns a css call like this\n' + 'let dynamicStyle = (props) => css`color: ${props.color}`\n' + 'It can be called directly with props or interpolated in a styled call like this\n' + "let SomeComponent = styled('div')`${dynamicStyle}`");
-        }
-
-        break;
-      }
-
-    case 'string':
-      if ("development" !== 'production') {
-        var matched = [];
-        var replaced = interpolation.replace(animationRegex, function (match, p1, p2) {
-          var fakeVarName = "animation" + matched.length;
-          matched.push("const " + fakeVarName + " = keyframes`" + p2.replace(/^@keyframes animation-\w+/, '') + "`");
-          return "${" + fakeVarName + "}";
-        });
-
-        if (matched.length) {
-          console.error('`keyframes` output got interpolated into plain string, please wrap it with `css`.\n\n' + 'Instead of doing this:\n\n' + [].concat(matched, ["`" + replaced + "`"]).join('\n') + '\n\nYou should wrap it with `css` like this:\n\n' + ("css`" + replaced + "`"));
-        }
-      }
-
-      break;
-  } // finalize string values (regular strings and functions interpolated into css calls)
-
-
-  if (registered == null) {
-    return interpolation;
-  }
-
-  var cached = registered[interpolation];
-
-  if ("development" !== 'production' && couldBeSelectorInterpolation && shouldWarnAboutInterpolatingClassNameFromCss && cached !== undefined) {
-    console.error('Interpolating a className from css`` is not recommended and will cause problems with composition.\n' + 'Interpolating a className from css`` will be completely unsupported in a future major version of Emotion');
-    shouldWarnAboutInterpolatingClassNameFromCss = false;
-  }
-
-  return cached !== undefined && !couldBeSelectorInterpolation ? cached : interpolation;
-}
-
-function createStringFromObject(mergedProps, registered, obj) {
-  var string = '';
-
-  if (Array.isArray(obj)) {
-    for (var i = 0; i < obj.length; i++) {
-      string += handleInterpolation(mergedProps, registered, obj[i], false);
-    }
-  } else {
-    for (var _key in obj) {
-      var value = obj[_key];
-
-      if (typeof value !== 'object') {
-        if (registered != null && registered[value] !== undefined) {
-          string += _key + "{" + registered[value] + "}";
-        } else if (isProcessableValue(value)) {
-          string += processStyleName(_key) + ":" + processStyleValue(_key, value) + ";";
-        }
-      } else {
-        if (_key === 'NO_COMPONENT_SELECTOR' && "development" !== 'production') {
-          throw new Error('Component selectors can only be used in conjunction with babel-plugin-emotion.');
-        }
-
-        if (Array.isArray(value) && typeof value[0] === 'string' && (registered == null || registered[value[0]] === undefined)) {
-          for (var _i = 0; _i < value.length; _i++) {
-            if (isProcessableValue(value[_i])) {
-              string += processStyleName(_key) + ":" + processStyleValue(_key, value[_i]) + ";";
-            }
-          }
-        } else {
-          var interpolated = handleInterpolation(mergedProps, registered, value, false);
-
-          switch (_key) {
-            case 'animation':
-            case 'animationName':
-              {
-                string += processStyleName(_key) + ":" + interpolated + ";";
-                break;
-              }
-
-            default:
-              {
-                if ("development" !== 'production' && _key === 'undefined') {
-                  console.error(UNDEFINED_AS_OBJECT_KEY_ERROR);
-                }
-
-                string += _key + "{" + interpolated + "}";
-              }
-          }
-        }
-      }
-    }
-  }
-
-  return string;
-}
-
-var labelPattern = /label:\s*([^\s;\n{]+)\s*;/g;
-var sourceMapPattern;
-
-if ("development" !== 'production') {
-  sourceMapPattern = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//;
-} // this is the cursor for keyframes
-// keyframes are stored on the SerializedStyles object as a linked list
-
-
-var cursor;
-
-var serializeStyles = function serializeStyles(args, registered, mergedProps) {
-  if (args.length === 1 && typeof args[0] === 'object' && args[0] !== null && args[0].styles !== undefined) {
-    return args[0];
-  }
-
-  var stringMode = true;
-  var styles = '';
-  cursor = undefined;
-  var strings = args[0];
-
-  if (strings == null || strings.raw === undefined) {
-    stringMode = false;
-    styles += handleInterpolation(mergedProps, registered, strings, false);
-  } else {
-    if ("development" !== 'production' && strings[0] === undefined) {
-      console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR);
-    }
-
-    styles += strings[0];
-  } // we start at 1 since we've already handled the first arg
-
-
-  for (var i = 1; i < args.length; i++) {
-    styles += handleInterpolation(mergedProps, registered, args[i], styles.charCodeAt(styles.length - 1) === 46);
-
-    if (stringMode) {
-      if ("development" !== 'production' && strings[i] === undefined) {
-        console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR);
-      }
-
-      styles += strings[i];
-    }
-  }
-
-  var sourceMap;
-
-  if ("development" !== 'production') {
-    styles = styles.replace(sourceMapPattern, function (match) {
-      sourceMap = match;
-      return '';
-    });
-  } // using a global regex with .exec is stateful so lastIndex has to be reset each time
-
-
-  labelPattern.lastIndex = 0;
-  var identifierName = '';
-  var match; // https://esbench.com/bench/5b809c2cf2949800a0f61fb5
-
-  while ((match = labelPattern.exec(styles)) !== null) {
-    identifierName += '-' + // $FlowFixMe we know it's not null
-    match[1];
-  }
-
-  var name = (0, _hash.default)(styles) + identifierName;
-
-  if ("development" !== 'production') {
-    // $FlowFixMe SerializedStyles type doesn't have toString property (and we don't want to add it)
-    return {
-      name: name,
-      styles: styles,
-      map: sourceMap,
-      next: cursor,
-      toString: function toString() {
-        return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop).";
-      }
-    };
-  }
-
-  return {
-    name: name,
-    styles: styles,
-    next: cursor
-  };
-};
-
-exports.serializeStyles = serializeStyles;
-},{"@emotion/hash":"../node_modules/domql/node_modules/@emotion/hash/dist/hash.browser.esm.js","@emotion/unitless":"../node_modules/domql/node_modules/@emotion/unitless/dist/unitless.browser.esm.js","@emotion/memoize":"../node_modules/domql/node_modules/@emotion/memoize/dist/memoize.browser.esm.js"}],"../node_modules/domql/node_modules/@emotion/utils/dist/utils.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getRegisteredStyles = getRegisteredStyles;
-exports.insertStyles = void 0;
-var isBrowser = "object" !== 'undefined';
-
-function getRegisteredStyles(registered, registeredStyles, classNames) {
-  var rawClassName = '';
-  classNames.split(' ').forEach(function (className) {
-    if (registered[className] !== undefined) {
-      registeredStyles.push(registered[className]);
-    } else {
-      rawClassName += className + " ";
-    }
-  });
-  return rawClassName;
-}
-
-var insertStyles = function insertStyles(cache, serialized, isStringTag) {
-  var className = cache.key + "-" + serialized.name;
-
-  if ( // we only need to add the styles to the registered cache if the
-  // class name could be used further down
-  // the tree but if it's a string tag, we know it won't
-  // so we don't have to add it to registered cache.
-  // this improves memory usage since we can avoid storing the whole style string
-  (isStringTag === false || // we need to always store it if we're in compat mode and
-  // in node since emotion-server relies on whether a style is in
-  // the registered cache to know whether a style is global or not
-  // also, note that this check will be dead code eliminated in the browser
-  isBrowser === false && cache.compat !== undefined) && cache.registered[className] === undefined) {
-    cache.registered[className] = serialized.styles;
-  }
-
-  if (cache.inserted[serialized.name] === undefined) {
-    var current = serialized;
-
-    do {
-      var maybeStyles = cache.insert("." + className, current, cache.sheet, true);
-      current = current.next;
-    } while (current !== undefined);
-  }
-};
-
-exports.insertStyles = insertStyles;
-},{}],"../node_modules/domql/node_modules/create-emotion/dist/create-emotion.browser.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _cache = _interopRequireDefault(require("@emotion/cache"));
-
-var _serialize = require("@emotion/serialize");
-
-var _utils = require("@emotion/utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function insertWithoutScoping(cache, serialized) {
-  if (cache.inserted[serialized.name] === undefined) {
-    return cache.insert('', serialized, cache.sheet, true);
-  }
-}
-
-function merge(registered, css, className) {
-  var registeredStyles = [];
-  var rawClassName = (0, _utils.getRegisteredStyles)(registered, registeredStyles, className);
-
-  if (registeredStyles.length < 2) {
-    return className;
-  }
-
-  return rawClassName + css(registeredStyles);
-}
-
-var createEmotion = function createEmotion(options) {
-  var cache = (0, _cache.default)(options); // $FlowFixMe
-
-  cache.sheet.speedy = function (value) {
-    if ("development" !== 'production' && this.ctr !== 0) {
-      throw new Error('speedy must be changed before any rules are inserted');
-    }
-
-    this.isSpeedy = value;
-  };
-
-  cache.compat = true;
-
-  var css = function css() {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var serialized = (0, _serialize.serializeStyles)(args, cache.registered, undefined);
-    (0, _utils.insertStyles)(cache, serialized, false);
-    return cache.key + "-" + serialized.name;
-  };
-
-  var keyframes = function keyframes() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-
-    var serialized = (0, _serialize.serializeStyles)(args, cache.registered);
-    var animation = "animation-" + serialized.name;
-    insertWithoutScoping(cache, {
-      name: serialized.name,
-      styles: "@keyframes " + animation + "{" + serialized.styles + "}"
-    });
-    return animation;
-  };
-
-  var injectGlobal = function injectGlobal() {
-    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-      args[_key3] = arguments[_key3];
-    }
-
-    var serialized = (0, _serialize.serializeStyles)(args, cache.registered);
-    insertWithoutScoping(cache, serialized);
-  };
-
-  var cx = function cx() {
-    for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-      args[_key4] = arguments[_key4];
-    }
-
-    return merge(cache.registered, css, classnames(args));
-  };
-
-  return {
-    css: css,
-    cx: cx,
-    injectGlobal: injectGlobal,
-    keyframes: keyframes,
-    hydrate: function hydrate(ids) {
-      ids.forEach(function (key) {
-        cache.inserted[key] = true;
-      });
-    },
-    flush: function flush() {
-      cache.registered = {};
-      cache.inserted = {};
-      cache.sheet.flush();
-    },
-    // $FlowFixMe
-    sheet: cache.sheet,
-    cache: cache,
-    getRegisteredStyles: _utils.getRegisteredStyles.bind(null, cache.registered),
-    merge: merge.bind(null, cache.registered, css)
-  };
-};
-
-var classnames = function classnames(args) {
-  var cls = '';
-
-  for (var i = 0; i < args.length; i++) {
-    var arg = args[i];
-    if (arg == null) continue;
-    var toAdd = void 0;
-
-    switch (typeof arg) {
-      case 'boolean':
-        break;
-
-      case 'object':
-        {
-          if (Array.isArray(arg)) {
-            toAdd = classnames(arg);
-          } else {
-            toAdd = '';
-
-            for (var k in arg) {
-              if (arg[k] && k) {
-                toAdd && (toAdd += ' ');
-                toAdd += k;
-              }
-            }
-          }
-
-          break;
-        }
-
-      default:
-        {
-          toAdd = arg;
-        }
-    }
-
-    if (toAdd) {
-      cls && (cls += ' ');
-      cls += toAdd;
-    }
-  }
-
-  return cls;
-};
-
-var _default = createEmotion;
-exports.default = _default;
-},{"@emotion/cache":"../node_modules/domql/node_modules/@emotion/cache/dist/cache.browser.esm.js","@emotion/serialize":"../node_modules/domql/node_modules/@emotion/serialize/dist/serialize.browser.esm.js","@emotion/utils":"../node_modules/domql/node_modules/@emotion/utils/dist/utils.browser.esm.js"}],"../node_modules/domql/node_modules/emotion/dist/emotion.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.sheet = exports.merge = exports.keyframes = exports.injectGlobal = exports.hydrate = exports.getRegisteredStyles = exports.flush = exports.cx = exports.css = exports.cache = void 0;
-
-var _createEmotion2 = _interopRequireDefault(require("create-emotion"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _createEmotion = (0, _createEmotion2.default)(),
-    flush = _createEmotion.flush,
-    hydrate = _createEmotion.hydrate,
-    cx = _createEmotion.cx,
-    merge = _createEmotion.merge,
-    getRegisteredStyles = _createEmotion.getRegisteredStyles,
-    injectGlobal = _createEmotion.injectGlobal,
-    keyframes = _createEmotion.keyframes,
-    css = _createEmotion.css,
-    sheet = _createEmotion.sheet,
-    cache = _createEmotion.cache;
-
-exports.cache = cache;
-exports.sheet = sheet;
-exports.css = css;
-exports.keyframes = keyframes;
-exports.injectGlobal = injectGlobal;
-exports.getRegisteredStyles = getRegisteredStyles;
-exports.merge = merge;
-exports.cx = cx;
-exports.hydrate = hydrate;
-exports.flush = flush;
-},{"create-emotion":"../node_modules/domql/node_modules/create-emotion/dist/create-emotion.browser.esm.js"}],"../node_modules/domql/src/element/params/style.js":[function(require,module,exports) {
+},{}],"../node_modules/@rackai/domql/src/element/params/style.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5433,47 +1535,29 @@ exports.default = void 0;
 
 var _utils = require("../../utils");
 
-var _error = _interopRequireDefault(require("../../res/error"));
-
-var _emotion = require("emotion");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _report = require("../../utils/report");
 
 /**
  * Recursively add styles to a DOM node
  */
 var _default = function _default(params, element, node) {
   if (params) {
-    var key = element.key;
-
-    if (_emotion.css) {
-      var CSSed = (0, _emotion.css)(params);
-      if ((0, _utils.isObject)(element.class)) element.class.style = CSSed;else if (typeof element.class === 'string') element.class += " ".concat(CSSed);else if (element.class === true) element.class = {
-        key: key,
-        style: CSSed
-      };
-    } else if ((0, _utils.isObject)(params)) (0, _utils.map)(node.style, params, element);else (0, _error.default)('HTMLInvalidStyles', params);
+    if ((0, _utils.isObject)(params)) (0, _utils.map)(node.style, params, element);else (0, _report.report)('HTMLInvalidStyles', params);
   }
 };
 
 exports.default = _default;
-},{"../../utils":"../node_modules/domql/src/utils/index.js","../../res/error":"../node_modules/domql/src/res/error.js","emotion":"../node_modules/domql/node_modules/emotion/dist/emotion.esm.js"}],"../node_modules/domql/src/element/method.js":[function(require,module,exports) {
-
+},{"../../utils":"../node_modules/@rackai/domql/src/utils/index.js","../../utils/report":"../node_modules/@rackai/domql/src/utils/report.js"}],"../node_modules/@rackai/domql/src/element/assign.js":[function(require,module,exports) {
 'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var text = function text(_text, node) {
-  node.innerHTML = _text;
-};
 /**
  * Receives child and parent nodes as parametes
  * and assigns them into real DOM tree
  */
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.assignNode = exports.appendNode = void 0;
 
 var appendNode = function appendNode(node, parentNode) {
   parentNode.appendChild(node);
@@ -5485,21 +1569,15 @@ var appendNode = function appendNode(node, parentNode) {
  */
 
 
+exports.appendNode = appendNode;
+
 var assignNode = function assignNode(element, parent, key) {
   parent[key || element.key] = element;
   appendNode(element.node, parent.node);
 };
 
-var define = function define(node, parent) {};
-
-var _default = {
-  text: text,
-  assignNode: assignNode,
-  appendNode: appendNode,
-  define: define
-};
-exports.default = _default;
-},{}],"../node_modules/domql/src/element/params/text.js":[function(require,module,exports) {
+exports.assignNode = assignNode;
+},{}],"../node_modules/@rackai/domql/src/element/params/text.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5507,9 +1585,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _method = _interopRequireDefault(require("../method"));
+var _assign = require("../assign");
 
-var _cacheNode = _interopRequireDefault(require("../cacheNode"));
+var _cache = _interopRequireDefault(require("../cache"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5523,14 +1601,29 @@ var _default = function _default(param, element) {
       tag: 'string',
       text: param
     };
-    var textNode = (0, _cacheNode.default)(param);
-
-    _method.default.appendNode(textNode, element.node);
+    var textNode = (0, _cache.default)(param);
+    (0, _assign.appendNode)(textNode, element.node);
   }
 };
 
 exports.default = _default;
-},{"../method":"../node_modules/domql/src/element/method.js","../cacheNode":"../node_modules/domql/src/element/cacheNode.js"}],"../node_modules/domql/src/element/params/registry.js":[function(require,module,exports) {
+},{"../assign":"../node_modules/@rackai/domql/src/element/assign.js","../cache":"../node_modules/@rackai/domql/src/element/cache.js"}],"../node_modules/@rackai/domql/src/element/params/state.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _utils = require("../../utils");
+
+var _default = function _default(param, element, node) {
+  if (param) element.state = (0, _utils.exec)(param, element);
+  return element;
+};
+
+exports.default = _default;
+},{"../../utils":"../node_modules/@rackai/domql/src/utils/index.js"}],"../node_modules/@rackai/domql/src/element/params/registry.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5540,15 +1633,17 @@ exports.default = void 0;
 
 var _ = require("./");
 
-var paramRegistry = {
+var _default = {
   attr: _.attr,
   style: _.style,
   text: _.text,
   html: _.html,
   content: _.content,
-  data: _.dataset,
+  data: _.data,
   class: _.classList,
+  state: _.state,
   proto: {},
+  path: {},
   childProto: {},
   if: {},
   define: {},
@@ -5560,12 +1655,10 @@ var paramRegistry = {
   node: {},
   set: {},
   update: {},
-  path: {},
   on: {}
 };
-var _default = paramRegistry;
 exports.default = _default;
-},{"./":"../node_modules/domql/src/element/params/index.js"}],"../node_modules/domql/src/element/params/index.js":[function(require,module,exports) {
+},{"./":"../node_modules/@rackai/domql/src/element/params/index.js"}],"../node_modules/@rackai/domql/src/element/params/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5589,16 +1682,10 @@ Object.defineProperty(exports, "content", {
     return _content.default;
   }
 });
-Object.defineProperty(exports, "dataset", {
+Object.defineProperty(exports, "data", {
   enumerable: true,
   get: function () {
-    return _dataset.default;
-  }
-});
-Object.defineProperty(exports, "exec", {
-  enumerable: true,
-  get: function () {
-    return _exec.default;
+    return _data.default;
   }
 });
 Object.defineProperty(exports, "html", {
@@ -5619,6 +1706,12 @@ Object.defineProperty(exports, "text", {
     return _text.default;
   }
 });
+Object.defineProperty(exports, "state", {
+  enumerable: true,
+  get: function () {
+    return _state.default;
+  }
+});
 Object.defineProperty(exports, "registry", {
   enumerable: true,
   get: function () {
@@ -5632,9 +1725,7 @@ var _classList = _interopRequireDefault(require("./classList"));
 
 var _content = _interopRequireDefault(require("./content"));
 
-var _dataset = _interopRequireDefault(require("./dataset"));
-
-var _exec = _interopRequireDefault(require("./exec"));
+var _data = _interopRequireDefault(require("./data"));
 
 var _html = _interopRequireDefault(require("./html"));
 
@@ -5642,10 +1733,12 @@ var _style = _interopRequireDefault(require("./style"));
 
 var _text = _interopRequireDefault(require("./text"));
 
+var _state = _interopRequireDefault(require("./state"));
+
 var _registry = _interopRequireDefault(require("./registry"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./attr":"../node_modules/domql/src/element/params/attr.js","./classList":"../node_modules/domql/src/element/params/classList.js","./content":"../node_modules/domql/src/element/params/content.js","./dataset":"../node_modules/domql/src/element/params/dataset.js","./exec":"../node_modules/domql/src/element/params/exec.js","./html":"../node_modules/domql/src/element/params/html.js","./style":"../node_modules/domql/src/element/params/style.js","./text":"../node_modules/domql/src/element/params/text.js","./registry":"../node_modules/domql/src/element/params/registry.js"}],"../node_modules/domql/src/element/createNode.js":[function(require,module,exports) {
+},{"./attr":"../node_modules/@rackai/domql/src/element/params/attr.js","./classList":"../node_modules/@rackai/domql/src/element/params/classList.js","./content":"../node_modules/@rackai/domql/src/element/params/content.js","./data":"../node_modules/@rackai/domql/src/element/params/data.js","./html":"../node_modules/@rackai/domql/src/element/params/html.js","./style":"../node_modules/@rackai/domql/src/element/params/style.js","./text":"../node_modules/@rackai/domql/src/element/params/text.js","./state":"../node_modules/@rackai/domql/src/element/params/state.js","./registry":"../node_modules/@rackai/domql/src/element/params/registry.js"}],"../node_modules/@rackai/domql/src/element/createNode.js":[function(require,module,exports) {
 var define;
 'use strict';
 
@@ -5656,13 +1749,13 @@ exports.default = void 0;
 
 var _create = _interopRequireDefault(require("./create"));
 
-var _cacheNode = _interopRequireDefault(require("./cacheNode"));
+var _cache = _interopRequireDefault(require("./cache"));
 
 var _params = require("./params");
 
-var on = _interopRequireWildcard(require("../event/on"));
-
 var _utils = require("../utils");
+
+var on = _interopRequireWildcard(require("../event/on"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -5677,10 +1770,10 @@ var createNode = function createNode(element) {
 
   if (!node) {
     isNewNode = true;
-    node = (0, _cacheNode.default)(element);
+    node = (0, _cache.default)(element);
     element.node = node;
     node.ref = element;
-  } // Initialize pre defined but not settled params
+  } // run define iteration to set params
 
 
   if (element.define && (0, _utils.isObject)(element.define)) {
@@ -5696,7 +1789,7 @@ var createNode = function createNode(element) {
       var define = element.define;
 
       for (var _param in define) {
-        var execParam = (0, _params.exec)(element[_param], element);
+        var execParam = (0, _utils.exec)(element[_param], element);
         element.data[_param] = execParam;
         element[_param] = define[_param](execParam, element);
       }
@@ -5707,12 +1800,12 @@ var createNode = function createNode(element) {
       var transform = element.transform;
 
       for (var _param2 in transform) {
-        execParam = (0, _params.exec)(element[_param2], element);
+        execParam = (0, _utils.exec)(element[_param2], element);
 
         if (element.data[_param2]) {
-          execParam = (0, _params.exec)(element.data[_param2], element);
+          execParam = (0, _utils.exec)(element.data[_param2], element);
         } else {
-          execParam = (0, _params.exec)(element[_param2], element);
+          execParam = (0, _utils.exec)(element[_param2], element);
           element.data[_param2] = execParam;
         }
 
@@ -5723,19 +1816,22 @@ var createNode = function createNode(element) {
 
     if (isNewNode && (0, _utils.isObject)(element.on)) {
       for (var _param3 in element.on) {
-        if (_param3 === 'init' || _param3 === 'render') break;
+        if (_param3 === 'init' || _param3 === 'render') continue;
         var appliedFunction = element.on[_param3];
         var registeredFunction = on[_param3];
 
         if (typeof appliedFunction === 'function' && typeof registeredFunction === 'function') {
           registeredFunction(appliedFunction, element);
-        } else console.error('Not such function', appliedFunction, registeredFunction);
+        } // var definedFunction = element.define && element.define[param]
+        // else console.error('Not such function', appliedFunction, registeredFunction)
+        // if (typeof appliedFunction === 'function' && typeof definedFunction === 'function') definedFunction(appliedFunction, element)
+
       }
     }
 
     for (var _param4 in element) {
       if (_param4 === 'set' || _param4 === 'update' || !element[_param4] === undefined) return;
-      execParam = (0, _params.exec)(element[_param4], element);
+      execParam = (0, _utils.exec)(element[_param4], element);
       var hasDefine = element.define && element.define[_param4];
       var registeredParam = _params.registry[_param4];
 
@@ -5744,6 +1840,8 @@ var createNode = function createNode(element) {
         if (typeof registeredParam === 'function') {
           registeredParam(execParam, element, node);
         }
+
+        if (_param4 === 'style') _params.registry['class'](element['class'], element, node);
       } else if (element[_param4] && !hasDefine) {
         // Create element
         (0, _create.default)(execParam, element, _param4); // if (isNewNode) create(execParam, element, param)
@@ -5758,27 +1856,64 @@ var createNode = function createNode(element) {
 
 var _default = createNode;
 exports.default = _default;
-},{"./create":"../node_modules/domql/src/element/create.js","./cacheNode":"../node_modules/domql/src/element/cacheNode.js","./params":"../node_modules/domql/src/element/params/index.js","../event/on":"../node_modules/domql/src/event/on.js","../utils":"../node_modules/domql/src/utils/index.js"}],"../node_modules/domql/src/element/proto.js":[function(require,module,exports) {
+},{"./create":"../node_modules/@rackai/domql/src/element/create.js","./cache":"../node_modules/@rackai/domql/src/element/cache.js","./params":"../node_modules/@rackai/domql/src/element/params/index.js","../utils":"../node_modules/@rackai/domql/src/utils/index.js","../event/on":"../node_modules/@rackai/domql/src/event/on.js"}],"../node_modules/@rackai/domql/src/element/proto.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.applyPrototype = exports.deepProto = exports.flattenPrototype = exports.mergeProtosArray = exports.flattenProtosAsArray = void 0;
 
-var _lodash = _interopRequireDefault(require("lodash.clonedeep"));
+var _utils = require("../utils");
 
-var _deepMerge = _interopRequireDefault(require("../utils/deepMerge"));
+/**
+ * Flattens deep level prototypes into an array
+ */
+var flattenProtosAsArray = function flattenProtosAsArray(proto) {
+  var protos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  protos.push(proto);
+  if (proto.proto) flattenProtosAsArray(proto.proto, protos);
+  return protos;
+};
+/**
+ * Merges array prototypes
+ */
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+exports.flattenProtosAsArray = flattenProtosAsArray;
+
+var mergeProtosArray = function mergeProtosArray(arr) {
+  return arr.reduce(function (a, c) {
+    return (0, _utils.deepMerge)(a, (0, _utils.deepClone)(c));
+  }, {});
+};
+/**
+ * Flattens deep level prototypes into an flat object
+ */
+
+
+exports.mergeProtosArray = mergeProtosArray;
+
+var flattenPrototype = function flattenPrototype(proto) {
+  var flattenedArray = flattenProtosAsArray(proto);
+  var flattenedObj = mergeProtosArray(flattenedArray);
+  if (flattenedObj.proto) delete flattenedObj.proto;
+  return (0, _utils.deepClone)(flattenedObj);
+};
 /**
  * Applies multiple prototype level
  */
-var recursiveProto = function recursiveProto(element, proto) {
-  var cloneProto = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  (0, _deepMerge.default)(element, proto, cloneProto);
-  if (proto.proto) recursiveProto(element, proto.proto);
+
+
+exports.flattenPrototype = flattenPrototype;
+
+var deepProto = function deepProto(element, proto) {
+  // if proto presented as array
+  if ((0, _utils.isArray)(proto)) proto = mergeProtosArray(proto); // flatten prototypal inheritances
+
+  var flatten = flattenPrototype(proto); // merge with prototype
+
+  return (0, _utils.deepMerge)(element, flatten);
 };
 /**
  * Checks whether element has `proto` or is a part
@@ -5786,25 +1921,28 @@ var recursiveProto = function recursiveProto(element, proto) {
  */
 
 
-var _default = function _default(element) {
-  var parent = element.parent;
-  /** If it has both `proto` and `childProto` */
+exports.deepProto = deepProto;
 
-  if (element.proto && parent && parent.childProto) {
-    var proto = (0, _lodash.default)(element.proto);
-    (0, _deepMerge.default)(proto, parent.childProto, true);
-    recursiveProto(element, proto, false);
-  } else if (element.proto) {
-    /** If it has only `proto` */
-    recursiveProto(element, element.proto, true);
-  } else if (parent && parent.childProto) {
-    /** If it has only `childProto` */
-    recursiveProto(element, parent.childProto, true);
+var applyPrototype = function applyPrototype(element) {
+  var parent = element.parent,
+      proto = element.proto;
+  /** Merge with `proto` */
+
+  if (proto) {
+    deepProto(element, proto);
   }
+  /** Merge with parent's `childProto` */
+
+
+  if (parent && parent.childProto) {
+    deepProto(element, parent.childProto);
+  }
+
+  return element;
 };
 
-exports.default = _default;
-},{"lodash.clonedeep":"../node_modules/domql/node_modules/lodash.clonedeep/index.js","../utils/deepMerge":"../node_modules/domql/src/utils/deepMerge.js"}],"../node_modules/domql/src/element/id.js":[function(require,module,exports) {
+exports.applyPrototype = applyPrototype;
+},{"../utils":"../node_modules/@rackai/domql/src/utils/index.js"}],"../node_modules/@rackai/domql/src/element/id.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5843,7 +1981,7 @@ var createID = /*#__PURE__*/regeneratorRuntime.mark(function createID() {
 var _default = createID();
 
 exports.default = _default;
-},{}],"../node_modules/domql/src/element/update.js":[function(require,module,exports) {
+},{}],"../node_modules/@rackai/domql/src/element/update.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5853,24 +1991,34 @@ exports.default = void 0;
 
 var _createNode = _interopRequireDefault(require("./createNode"));
 
-var _overwrite = _interopRequireDefault(require("../utils/overwrite"));
+var _utils = require("../utils");
+
+var on = _interopRequireWildcard(require("../event/on"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import applyPrototype from './proto'
 var update = function update() {
   var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  (0, _overwrite.default)(this, params);
-  this.node.innerHTML = ''; // debugger
-  // applyPrototype(this)
+  var element = this;
+  (0, _utils.overwrite)(element, params);
+  element.node.innerHTML = '';
+  (0, _createNode.default)(element); // run onRender
 
-  (0, _createNode.default)(this);
+  if (element.on && typeof element.on.render === 'function') {
+    on.render(element.on.render, element);
+  }
+
   return this;
 };
 
 var _default = update;
 exports.default = _default;
-},{"./createNode":"../node_modules/domql/src/element/createNode.js","../utils/overwrite":"../node_modules/domql/src/utils/overwrite.js"}],"../node_modules/domql/src/element/create.js":[function(require,module,exports) {
+},{"./createNode":"../node_modules/@rackai/domql/src/element/createNode.js","../utils":"../node_modules/@rackai/domql/src/utils/index.js","../event/on":"../node_modules/@rackai/domql/src/event/on.js"}],"../node_modules/@rackai/domql/src/element/create.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5878,15 +2026,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _error = _interopRequireDefault(require("../res/error"));
+var _utils = require("../utils");
 
 var _tree = _interopRequireDefault(require("./tree"));
 
 var _createNode = _interopRequireDefault(require("./createNode"));
 
-var _method = _interopRequireDefault(require("./method"));
+var _assign = require("./assign");
 
-var _proto = _interopRequireDefault(require("./proto"));
+var _proto = require("./proto");
 
 var _id = _interopRequireDefault(require("./id"));
 
@@ -5911,7 +2059,7 @@ var create = function create(element, parent, key) {
   // If parent is not given
   if (!parent) parent = _tree.default; // If element is not given
 
-  if (!element) return (0, _error.default)('CantCreateWithoutNode'); // run onInit
+  if (!element) return (0, _utils.report)('CantCreateWithoutNode'); // run onInit
 
   if (element.on && typeof element.on.init === 'function') {
     on.init(element.on.init, element);
@@ -5922,7 +2070,7 @@ var create = function create(element, parent, key) {
 
 
   if (element.node) {
-    return _method.default.assignNode(element, parent, assignedKey);
+    return (0, _assign.assignNode)(element, parent, assignedKey);
   } // If element is string
 
 
@@ -5936,10 +2084,10 @@ var create = function create(element, parent, key) {
 
   element.parent = parent; // Set the path
 
-  if (!parent.path) parent.path = []; // element.path = parent.path.concat(key)
-  // if proto, or inherited proto
+  if (!parent.path) parent.path = [];
+  element.path = parent.path.concat(assignedKey); // if proto, or inherited proto
 
-  (0, _proto.default)(element); // generate a class name
+  (0, _proto.applyPrototype)(element); // generate a class name
 
   if (element.class === true) element.class = assignedKey;else if (!element.class && typeof assignedKey === 'string' && assignedKey.charAt(0) === '_') {
     element.class = assignedKey.slice(1);
@@ -5953,9 +2101,7 @@ var create = function create(element, parent, key) {
   (0, _createNode.default)(element);
   element.set = _set.default;
   element.update = _update.default;
-
-  _method.default.assignNode(element, parent, key); // run onRender
-
+  (0, _assign.assignNode)(element, parent, key); // run onRender
 
   if (element.on && typeof element.on.render === 'function') {
     on.render(element.on.render, element);
@@ -5966,7 +2112,30 @@ var create = function create(element, parent, key) {
 
 var _default = create;
 exports.default = _default;
-},{"../res/error":"../node_modules/domql/src/res/error.js","./tree":"../node_modules/domql/src/element/tree.js","./createNode":"../node_modules/domql/src/element/createNode.js","./method":"../node_modules/domql/src/element/method.js","./proto":"../node_modules/domql/src/element/proto.js","./id":"../node_modules/domql/src/element/id.js","./nodes":"../node_modules/domql/src/element/nodes.js","./set":"../node_modules/domql/src/element/set.js","./update":"../node_modules/domql/src/element/update.js","../event/on":"../node_modules/domql/src/event/on.js"}],"../node_modules/domql/src/element/parse.js":[function(require,module,exports) {
+},{"../utils":"../node_modules/@rackai/domql/src/utils/index.js","./tree":"../node_modules/@rackai/domql/src/element/tree.js","./createNode":"../node_modules/@rackai/domql/src/element/createNode.js","./assign":"../node_modules/@rackai/domql/src/element/assign.js","./proto":"../node_modules/@rackai/domql/src/element/proto.js","./id":"../node_modules/@rackai/domql/src/element/id.js","./nodes":"../node_modules/@rackai/domql/src/element/nodes.js","./set":"../node_modules/@rackai/domql/src/element/set.js","./update":"../node_modules/@rackai/domql/src/element/update.js","../event/on":"../node_modules/@rackai/domql/src/event/on.js"}],"../node_modules/@rackai/domql/src/element/define.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _params = require("./params");
+
+var _utils = require("../utils");
+
+var _default = function _default(params, options) {
+  var overwrite = options.overwrite;
+
+  for (var param in params) {
+    if (_params.registry[param] && !overwrite) {
+      (0, _utils.report)('OverwriteToBuiltin', param);
+    } else _params.registry[param] = params[param];
+  }
+};
+
+exports.default = _default;
+},{"./params":"../node_modules/@rackai/domql/src/element/params/index.js","../utils":"../node_modules/@rackai/domql/src/utils/index.js"}],"../node_modules/@rackai/domql/src/element/parse.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5976,7 +2145,7 @@ exports.default = void 0;
 
 var _create = _interopRequireDefault(require("./create"));
 
-var _method = _interopRequireDefault(require("./method"));
+var _assign = require("./assign");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5984,19 +2153,73 @@ var parse = function parse(element) {
   var virtualTree = {
     node: document.createElement('div')
   };
-  if (element && element.node) _method.default.assignNode(element, virtualTree);else (0, _create.default)(element, virtualTree);
+  if (element && element.node) (0, _assign.assignNode)(element, virtualTree);else (0, _create.default)(element, virtualTree);
   return virtualTree.node.innerHTML;
 };
 
 var _default = parse;
 exports.default = _default;
-},{"./create":"../node_modules/domql/src/element/create.js","./method":"../node_modules/domql/src/element/method.js"}],"../node_modules/domql/src/element/index.js":[function(require,module,exports) {
+},{"./create":"../node_modules/@rackai/domql/src/element/create.js","./assign":"../node_modules/@rackai/domql/src/element/assign.js"}],"../node_modules/@rackai/domql/src/element/index.js":[function(require,module,exports) {
+
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+Object.defineProperty(exports, "nodes", {
+  enumerable: true,
+  get: function () {
+    return _nodes.default;
+  }
+});
+Object.defineProperty(exports, "root", {
+  enumerable: true,
+  get: function () {
+    return _root.default;
+  }
+});
+Object.defineProperty(exports, "tree", {
+  enumerable: true,
+  get: function () {
+    return _tree.default;
+  }
+});
+Object.defineProperty(exports, "create", {
+  enumerable: true,
+  get: function () {
+    return _create.default;
+  }
+});
+Object.defineProperty(exports, "createNode", {
+  enumerable: true,
+  get: function () {
+    return _createNode.default;
+  }
+});
+Object.defineProperty(exports, "assign", {
+  enumerable: true,
+  get: function () {
+    return _assign.default;
+  }
+});
+Object.defineProperty(exports, "define", {
+  enumerable: true,
+  get: function () {
+    return _define.default;
+  }
+});
+Object.defineProperty(exports, "parse", {
+  enumerable: true,
+  get: function () {
+    return _parse.default;
+  }
+});
+Object.defineProperty(exports, "set", {
+  enumerable: true,
+  get: function () {
+    return _set.default;
+  }
+});
 
 var _nodes = _interopRequireDefault(require("./nodes"));
 
@@ -6008,61 +2231,17 @@ var _create = _interopRequireDefault(require("./create"));
 
 var _createNode = _interopRequireDefault(require("./createNode"));
 
-var _method = _interopRequireDefault(require("./method"));
+var _assign = _interopRequireDefault(require("./assign"));
+
+var _define = _interopRequireDefault(require("./define"));
 
 var _parse = _interopRequireDefault(require("./parse"));
 
 var _set = _interopRequireDefault(require("./set"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./nodes":"../node_modules/@rackai/domql/src/element/nodes.js","./root":"../node_modules/@rackai/domql/src/element/root.js","./tree":"../node_modules/@rackai/domql/src/element/tree.js","./create":"../node_modules/@rackai/domql/src/element/create.js","./createNode":"../node_modules/@rackai/domql/src/element/createNode.js","./assign":"../node_modules/@rackai/domql/src/element/assign.js","./define":"../node_modules/@rackai/domql/src/element/define.js","./parse":"../node_modules/@rackai/domql/src/element/parse.js","./set":"../node_modules/@rackai/domql/src/element/set.js"}],"../node_modules/@rackai/domql/src/index.js":[function(require,module,exports) {
 
-var _default = {
-  nodes: _nodes.default,
-  root: _root.default,
-  tree: _tree.default,
-  create: _create.default,
-  createNode: _createNode.default,
-  method: _method.default,
-  parse: _parse.default,
-  set: _set.default
-};
-exports.default = _default;
-},{"./nodes":"../node_modules/domql/src/element/nodes.js","./root":"../node_modules/domql/src/element/root.js","./tree":"../node_modules/domql/src/element/tree.js","./create":"../node_modules/domql/src/element/create.js","./createNode":"../node_modules/domql/src/element/createNode.js","./method":"../node_modules/domql/src/element/method.js","./parse":"../node_modules/domql/src/element/parse.js","./set":"../node_modules/domql/src/element/set.js"}],"../node_modules/domql/src/res/string.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  en: {
-    WeekDays: {
-      Short: ['Mon', 'Thue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
-      Long: ['Monday', 'Thuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    },
-    Months: {
-      Short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      Long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    }
-  }
-};
-exports.default = _default;
-},{}],"../node_modules/domql/src/res/language.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  current: 'en',
-  list: {
-    ge: 'Georgian',
-    us: 'English (USA)'
-  }
-};
-exports.default = _default;
-},{}],"../node_modules/domql/src/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6072,42 +2251,16 @@ exports.default = void 0;
 
 require("regenerator-runtime/runtime");
 
-var _utils = _interopRequireDefault(require("./utils"));
+var _element = require("./element");
 
-var _error = _interopRequireDefault(require("./res/error"));
-
-var _element = _interopRequireDefault(require("./element"));
-
-var _event = _interopRequireDefault(require("./event"));
-
-var _string = _interopRequireDefault(require("./res/string"));
-
-var _language = _interopRequireDefault(require("./res/language"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var create = _element.default.create,
-    parse = _element.default.parse,
-    set = _element.default.set;
-var app = {
-  about: {
-    version: '0.0.1'
-  },
-  utils: _utils.default,
-  Err: _error.default,
-  Elem: _element.default,
-  create: create,
-  parse: parse,
-  set: set,
-  Evt: _event.default,
-  Str: _string.default,
-  Lng: _language.default
+var _default = {
+  create: _element.create,
+  parse: _element.parse,
+  define: _element.define,
+  tree: _element.tree
 };
-window.DOM = app;
-window.tree = app.Elem.tree;
-var _default = app;
 exports.default = _default;
-},{"regenerator-runtime/runtime":"../node_modules/domql/node_modules/regenerator-runtime/runtime.js","./utils":"../node_modules/domql/src/utils/index.js","./res/error":"../node_modules/domql/src/res/error.js","./element":"../node_modules/domql/src/element/index.js","./event":"../node_modules/domql/src/event/index.js","./res/string":"../node_modules/domql/src/res/string.js","./res/language":"../node_modules/domql/src/res/language.js"}],"../node_modules/@emotion/sheet/dist/sheet.browser.esm.js":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"../node_modules/@rackai/domql/node_modules/regenerator-runtime/runtime.js","./element":"../node_modules/@rackai/domql/src/element/index.js"}],"../node_modules/@emotion/sheet/dist/sheet.browser.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7833,7 +3986,7 @@ exports.merge = merge;
 exports.cx = cx;
 exports.hydrate = hydrate;
 exports.flush = flush;
-},{"create-emotion":"../node_modules/create-emotion/dist/create-emotion.browser.esm.js"}],"styles.js":[function(require,module,exports) {
+},{"create-emotion":"../node_modules/create-emotion/dist/create-emotion.browser.esm.js"}],"style.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7842,16 +3995,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _emotion = require("emotion");
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  > h4 {\n    margin-bottom: 2%;\n\n    > a {\n      color: white;\n      text-decoration: none;\n    }\n  }\n\n  > div {\n    padding: 2em 4em 4em;\n    border: 2px solid currentColor;\n    background: white;\n    max-width: 727px;\n    border-radius: 6px;\n\n    > div {\n      margin: 3rem 3rem 0 0;\n    }\n  }\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
 
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n  @font-face {\n    font-family: 'Europa';\n    font-style: normal;\n    font-weight: 200;\n    src: url(/assets/fonts/europa-light-webfont.woff2) format('woff2');\n  }\n  @font-face {\n    font-family: 'Europa';\n    font-style: normal;\n    font-weight: 400;\n    src: url(/assets/fonts/europa-regular-webfont.woff2) format('woff2');\n  }\n  @font-face {\n    font-family: 'Europa';\n    font-style: normal;\n    font-weight: 600;\n    src: url(/assets/fonts/europa-bold-webfont.woff2) format('woff2');\n  }\n  \n  body { \n    font-family: 'Europa';\n    background: currentColor;\n    padding: 2%\n  }\n"]);
@@ -7866,11 +4009,87 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 (0, _emotion.injectGlobal)(_templateObject());
-
-var _default = (0, _emotion.css)(_templateObject2());
-
+var _default = "\n  > h4 {\n    margin-bottom: 2%;\n\n    > a {\n      color: white;\n      text-decoration: none;\n    }\n  }\n\n  > div {\n    padding: 2em 4em 4em;\n    border: 2px solid currentColor;\n    background: white;\n    max-width: 727px;\n    border-radius: 6px;\n\n    > div {\n      margin: 3rem 3rem 0 0;\n    }\n  }\n";
 exports.default = _default;
-},{"emotion":"../node_modules/emotion/dist/emotion.esm.js"}],"colors/index.js":[function(require,module,exports) {
+},{"emotion":"../node_modules/emotion/dist/emotion.esm.js"}],"../node_modules/@rackai/scratch/src/config/sequence.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  'minor-second': 1.067,
+  'major-second': 1.125,
+  'minor-third': 1.2,
+  'major-third': 1.25,
+  'perfect-fourth': 1.333,
+  'augmented-fourth': 1.414,
+  'perfect-fifth': 1.5,
+  'phi': 1.618,
+  // golden-ratio
+  'square-root-3': 1.73205,
+  // theodorus
+  'square-root-5': 2.23,
+  // pythagoras
+  'pi': 3.14 // archimedes
+
+};
+exports.default = _default;
+},{}],"../node_modules/@rackai/scratch/src/config/color.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var black = '#000000';
+var blue = '#5081BB';
+var green = '#4C904B';
+var cyan = '#63B7A4';
+var yellow = '#DAB648';
+var orange = '#C37234';
+var purple = '#7938B2';
+var red = '#D13B3B';
+var peach = '#EF604E';
+var pink = '#9A36AF';
+var white = '#FFFFFF';
+var colors = {
+  black,
+  blue,
+  green,
+  cyan,
+  yellow,
+  orange,
+  purple,
+  red,
+  peach,
+  pink,
+  white
+};
+var _default = {};
+exports.default = _default;
+},{}],"../node_modules/@rackai/scratch/src/config/theme.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var themeA = {
+  text: 'blue',
+  background: 'white',
+  border: 'black',
+  // .opacity(0.2),
+  helpers: [],
+  inverse: {} // schemeAInverse
+
+};
+var _default = {};
+exports.default = _default;
+},{}],"../node_modules/@rackai/scratch/src/config/box.js":[function(require,module,exports) {
+
+},{}],"../node_modules/@rackai/scratch/src/config/size.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7878,9 +4097,522 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _scratch = require("scratch");
+var _sequence = _interopRequireDefault(require("./sequence"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+  base: 16,
+  ratio: _sequence.default['phi']
+};
+exports.default = _default;
+},{"./sequence":"../node_modules/@rackai/scratch/src/config/sequence.js"}],"../node_modules/@rackai/scratch/src/config/typography.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {};
+exports.default = _default;
+},{}],"../node_modules/@rackai/scratch/src/config/unit.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = 'px';
+exports.default = _default;
+},{}],"../node_modules/@rackai/scratch/src/config/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "Sequence", {
+  enumerable: true,
+  get: function () {
+    return _sequence.default;
+  }
+});
+Object.defineProperty(exports, "Color", {
+  enumerable: true,
+  get: function () {
+    return _color.default;
+  }
+});
+Object.defineProperty(exports, "Theme", {
+  enumerable: true,
+  get: function () {
+    return _theme.default;
+  }
+});
+Object.defineProperty(exports, "Box", {
+  enumerable: true,
+  get: function () {
+    return _box.default;
+  }
+});
+Object.defineProperty(exports, "Size", {
+  enumerable: true,
+  get: function () {
+    return _size.default;
+  }
+});
+Object.defineProperty(exports, "Typography", {
+  enumerable: true,
+  get: function () {
+    return _typography.default;
+  }
+});
+Object.defineProperty(exports, "Unit", {
+  enumerable: true,
+  get: function () {
+    return _unit.default;
+  }
+});
+
+var _sequence = _interopRequireDefault(require("./sequence"));
+
+var _color = _interopRequireDefault(require("./color"));
+
+var _theme = _interopRequireDefault(require("./theme"));
+
+var _box = _interopRequireDefault(require("./box"));
+
+var _size = _interopRequireDefault(require("./size"));
+
+var _typography = _interopRequireDefault(require("./typography"));
+
+var _unit = _interopRequireDefault(require("./unit"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./sequence":"../node_modules/@rackai/scratch/src/config/sequence.js","./color":"../node_modules/@rackai/scratch/src/config/color.js","./theme":"../node_modules/@rackai/scratch/src/config/theme.js","./box":"../node_modules/@rackai/scratch/src/config/box.js","./size":"../node_modules/@rackai/scratch/src/config/size.js","./typography":"../node_modules/@rackai/scratch/src/config/typography.js","./unit":"../node_modules/@rackai/scratch/src/config/unit.js"}],"../node_modules/@rackai/scratch/src/utils/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getFontFace = exports.setCustomFont = exports.getFontFormat = exports.opacify = exports.mixTwoRGBA = exports.mixTwoRGB = exports.hexToRGBA = exports.hexToRGB = exports.mixTwoColors = exports.colorStringToRGBAArray = exports.merge = void 0;
+
+const merge = (obj, original) => {
+  for (const e in original) {
+    const objProp = obj[e];
+    const originalProp = original[e];
+
+    if (objProp === undefined) {
+      obj[e] = originalProp;
+    }
+  }
+
+  return obj;
+};
+
+exports.merge = merge;
+
+const colorStringToRGBAArray = color => {
+  if (color === '') return;
+  if (color.toLowerCase() === 'transparent') return [0, 0, 0, 0]; // convert #RGB and #RGBA to #RRGGBB and #RRGGBBAA
+
+  if (color[0] === '#') {
+    if (color.length < 7) {
+      color = '#' + color[1] + color[1] + color[2] + color[2] + color[3] + color[3] + (color.length > 4 ? color[4] + color[4] : '');
+    }
+
+    return [parseInt(color.substr(1, 2), 16), parseInt(color.substr(3, 2), 16), parseInt(color.substr(5, 2), 16), color.length > 7 ? parseInt(color.substr(7, 2), 16) / 255 : 1];
+  } // convert named colors
+
+
+  if (color.indexOf('rgb') === -1) {
+    // intentionally use unknown tag to lower chances of css rule override with !important
+    var elem = document.body.appendChild(document.createElement('fictum')); // this flag tested on chrome 59, ff 53, ie9, ie10, ie11, edge 14
+
+    var flag = 'rgb(1, 2, 3)';
+    elem.style.color = flag; // color set failed - some monstrous css rule is probably taking over the color of our object
+
+    if (elem.style.color !== flag) return;
+    elem.style.color = color;
+    if (elem.style.color === flag || elem.style.color === '') return; // color parse failed
+
+    color = window.getComputedStyle(elem).color;
+    document.body.removeChild(elem);
+  } // convert 'rgb(R,G,B)' to 'rgb(R,G,B)A' which looks awful but will pass the regxep below
+
+
+  if (color.indexOf('rgb') === 0) {
+    if (color.indexOf('rgba') === -1) color = `${color}, 1`;
+    return color.match(/[\.\d]+/g).map(a => +a); // eslint-disable-line
+  }
+};
+
+exports.colorStringToRGBAArray = colorStringToRGBAArray;
+
+const mixTwoColors = (colorA, colorB, range = 0.5) => {
+  colorA = colorStringToRGBAArray(colorA);
+  colorB = colorStringToRGBAArray(colorB);
+  return mixTwoRGBA(colorA, colorB, range);
+};
+
+exports.mixTwoColors = mixTwoColors;
+
+const hexToRGB = (hex, alpha = 1) => {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+  return `rgb(${r},${g},${b})`;
+};
+
+exports.hexToRGB = hexToRGB;
+
+const hexToRGBA = (hex, alpha = 1) => {
+  const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+  return `rgba(${r},${g},${b},${alpha})`;
+};
+
+exports.hexToRGBA = hexToRGBA;
+
+const mixTwoRGB = (colorA, colorB, range = 0.5) => {
+  let arr = [];
+
+  for (let i = 0; i < 3; i++) {
+    arr[i] = Math.round(colorA[i] + (colorB[i] - colorA[i]) * range);
+  }
+
+  return `rgb(${arr})`;
+};
+
+exports.mixTwoRGB = mixTwoRGB;
+
+const mixTwoRGBA = (colorA, colorB, range = 0.5) => {
+  let arr = [];
+
+  for (let i = 0; i < 4; i++) {
+    let round = i === 3 ? x => x : Math.round;
+    arr[i] = round(colorA[i] + (colorB[i] - colorA[i]) * range);
+  }
+
+  return `rgba(${arr})`;
+};
+
+exports.mixTwoRGBA = mixTwoRGBA;
+
+const opacify = (color, opacity) => {
+  let arr = colorStringToRGBAArray(color);
+  arr[3] = opacity;
+  return `rgba(${arr})`;
+};
+
+exports.opacify = opacify;
+
+const getFontFormat = url => url.split(/[#?]/)[0].split('.').pop().trim();
+
+exports.getFontFormat = getFontFormat;
+
+const setCustomFont = (name, weight, url) => `@font-face {
+  font-family: '${name}';
+  font-style: normal;
+  font-weight: ${weight};
+  src: url('${url}') format('${getFontFormat(url)}');
+}`;
+
+exports.setCustomFont = setCustomFont;
+
+const getFontFace = Library => {
+  var fonts = '';
+
+  for (var name in Library) {
+    var font = Library[name];
+
+    for (var weight in font) {
+      var url = font[weight];
+      fonts += `\n${setCustomFont(name, weight, url)}`;
+    }
+  }
+
+  return fonts;
+};
+
+exports.getFontFace = getFontFace;
+},{}],"../node_modules/@rackai/scratch/src/methods/set.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _config = require("../config");
+
+var _utils = require("../utils");
+
+var set = (kind, ...props) => {
+  if (kind === 'color') {
+    var Colors = props[0];
+
+    for (let c in Colors) {
+      _config.Color[c] = Colors[c];
+    }
+
+    return Colors;
+  } else if (kind === 'theme') {
+    props.map(value => {
+      var {
+        name
+      } = value;
+      _config.Theme[name] = value;
+    });
+    return _config.Theme;
+  } else if (kind === 'typography') {
+    props.map(value => {
+      var {
+        name
+      } = value;
+      delete value.name;
+      _config.Typography[name] = value;
+    });
+    return (0, _utils.getFontFace)(_config.Typography);
+  }
+};
+
+var _default = set;
+exports.default = _default;
+},{"../config":"../node_modules/@rackai/scratch/src/config/index.js","../utils":"../node_modules/@rackai/scratch/src/utils/index.js"}],"../node_modules/@rackai/scratch/src/methods/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "set", {
+  enumerable: true,
+  get: function () {
+    return _set.default;
+  }
+});
+
+var _set = _interopRequireDefault(require("./set"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./set":"../node_modules/@rackai/scratch/src/methods/set.js"}],"../node_modules/@rackai/scratch/src/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "set", {
+  enumerable: true,
+  get: function () {
+    return _methods.set;
+  }
+});
+Object.defineProperty(exports, "Sequence", {
+  enumerable: true,
+  get: function () {
+    return _config.Sequence;
+  }
+});
+Object.defineProperty(exports, "Color", {
+  enumerable: true,
+  get: function () {
+    return _config.Color;
+  }
+});
+Object.defineProperty(exports, "Theme", {
+  enumerable: true,
+  get: function () {
+    return _config.Theme;
+  }
+});
+Object.defineProperty(exports, "Box", {
+  enumerable: true,
+  get: function () {
+    return _config.Box;
+  }
+});
+Object.defineProperty(exports, "Size", {
+  enumerable: true,
+  get: function () {
+    return _config.Size;
+  }
+});
+Object.defineProperty(exports, "Typography", {
+  enumerable: true,
+  get: function () {
+    return _config.Typography;
+  }
+});
+Object.defineProperty(exports, "Unit", {
+  enumerable: true,
+  get: function () {
+    return _config.Unit;
+  }
+});
+Object.defineProperty(exports, "colorStringToRGBAArray", {
+  enumerable: true,
+  get: function () {
+    return _utils.colorStringToRGBAArray;
+  }
+});
+Object.defineProperty(exports, "opacify", {
+  enumerable: true,
+  get: function () {
+    return _utils.opacify;
+  }
+});
+Object.defineProperty(exports, "mixTwoColors", {
+  enumerable: true,
+  get: function () {
+    return _utils.mixTwoColors;
+  }
+});
+Object.defineProperty(exports, "hexToRGB", {
+  enumerable: true,
+  get: function () {
+    return _utils.hexToRGB;
+  }
+});
+Object.defineProperty(exports, "hexToRGBA", {
+  enumerable: true,
+  get: function () {
+    return _utils.hexToRGBA;
+  }
+});
+Object.defineProperty(exports, "mixTwoRGB", {
+  enumerable: true,
+  get: function () {
+    return _utils.mixTwoRGB;
+  }
+});
+Object.defineProperty(exports, "mixTwoRGBA", {
+  enumerable: true,
+  get: function () {
+    return _utils.mixTwoRGBA;
+  }
+});
+Object.defineProperty(exports, "getFontFormat", {
+  enumerable: true,
+  get: function () {
+    return _utils.getFontFormat;
+  }
+});
+Object.defineProperty(exports, "setCustomFont", {
+  enumerable: true,
+  get: function () {
+    return _utils.setCustomFont;
+  }
+});
+Object.defineProperty(exports, "getFontFace", {
+  enumerable: true,
+  get: function () {
+    return _utils.getFontFace;
+  }
+});
+
+var _methods = require("./methods");
+
+var _config = require("./config");
+
+var _utils = require("./utils");
+},{"./methods":"../node_modules/@rackai/scratch/src/methods/index.js","./config":"../node_modules/@rackai/scratch/src/config/index.js","./utils":"../node_modules/@rackai/scratch/src/utils/index.js"}],"config/color.js":[function(require,module,exports) {
+'use strict';
+
+var _scratch = require("@rackai/scratch");
+
+(0, _scratch.set)('color', {
+  black: '#000',
+  blue: '#0079FD',
+  indigo: '#50E1FF',
+  green: '#59AC56',
+  red: '#FE5B47',
+  yellow: '#EDCB38',
+  orange: '#E2862F',
+  brown: '#7D6755',
+  pink: '#FD8ABF',
+  purple: '#7345AF',
+  white: '#fff'
+});
+},{"@rackai/scratch":"../node_modules/@rackai/scratch/src/index.js"}],"config/theme.js":[function(require,module,exports) {
+'use strict';
+
+var _scratch = require("@rackai/scratch");
+
+(0, _scratch.set)('theme', {
+  name: 'primary',
+  color: _scratch.Color['white'],
+  backgroundColor: _scratch.Color['red']
+}, {
+  name: 'secondary',
+  color: _scratch.Color['white'],
+  backgroundColor: _scratch.Color['blue']
+}, {
+  name: 'tertiary',
+  color: _scratch.Color['white'],
+  backgroundColor: _scratch.Color['pink']
+}, {
+  name: 'quo',
+  color: _scratch.Color['white'],
+  backgroundColor: _scratch.Color['yellow']
+}, {
+  name: 'qui',
+  color: _scratch.Color['white'],
+  backgroundColor: _scratch.Color['indigo']
+}, {
+  name: 'six',
+  color: _scratch.Color['white'],
+  backgroundColor: _scratch.Color['green']
+}, {
+  name: 'seq',
+  color: _scratch.Color['white'],
+  backgroundColor: _scratch.Color['purple']
+});
+},{"@rackai/scratch":"../node_modules/@rackai/scratch/src/index.js"}],"config/index.js":[function(require,module,exports) {
+'use strict';
+
+require("./color");
+
+require("./theme");
+},{"./color":"config/color.js","./theme":"config/theme.js"}],"define.js":[function(require,module,exports) {
+'use strict';
+
+var _domql = _interopRequireDefault(require("@rackai/domql"));
+
+var _utils = require("@rackai/domql/src/utils");
+
+var _params = require("@rackai/domql/src/element/params");
 
 var _emotion = require("emotion");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_domql.default.define({
+  style: function style(params, element, node) {
+    if (params) {
+      if ((0, _utils.isObject)(element.class)) element.class.style = params;else element.class = {
+        style: params
+      };
+    }
+  },
+  class: function _class(params, element, node) {
+    if ((0, _utils.isObject)(params)) {
+      for (var param in params) {
+        var prop = (0, _utils.exec)(params[param], element);
+        var CSSed = (0, _emotion.css)(prop);
+        element.class[param] = CSSed;
+      }
+
+      (0, _params.classList)(element.class, element, node);
+    }
+  }
+}, {
+  overwrite: true
+});
+},{"@rackai/domql":"../node_modules/@rackai/domql/src/index.js","@rackai/domql/src/utils":"../node_modules/@rackai/domql/src/utils/index.js","@rackai/domql/src/element/params":"../node_modules/@rackai/domql/src/element/params/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js"}],"colors/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _scratch = require("@rackai/scratch");
 
 var colors = {
   style: {
@@ -7896,7 +4628,7 @@ var colors = {
     },
     class: {
       theme: function theme(element) {
-        return (0, _emotion.css)(_scratch.theme[element.theme]);
+        return _scratch.Theme[element.theme];
       }
     },
     define: {
@@ -7910,7 +4642,7 @@ var colors = {
   }
 };
 
-for (var th in _scratch.theme) {
+for (var th in _scratch.Theme) {
   colors[th] = {
     theme: th
   };
@@ -7918,7 +4650,7 @@ for (var th in _scratch.theme) {
 
 var _default = colors;
 exports.default = _default;
-},{"scratch":"../node_modules/scratch/src/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js"}],"../src/Shape/style.js":[function(require,module,exports) {
+},{"@rackai/scratch":"../node_modules/@rackai/scratch/src/index.js"}],"../src/Shape/style.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7926,7 +4658,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.size = exports.depth = exports.round = exports.shape = exports.style = void 0;
 
-var _scratch = require("scratch");
+var _scratch = require("@rackai/scratch");
 
 var style = {
   border: "1px solid transparent",
@@ -7959,22 +4691,22 @@ var round = {
 exports.round = round;
 var depth = {
   4: {
-    boxShadow: "rgba(0,0,0,.10) 0 2".concat(_scratch.unit, " 4").concat(_scratch.unit)
+    boxShadow: "rgba(0,0,0,.10) 0 2".concat(_scratch.Unit, " 4").concat(_scratch.Unit)
   },
   6: {
-    boxShadow: "rgba(0,0,0,.10) 0 3".concat(_scratch.unit, " 6").concat(_scratch.unit)
+    boxShadow: "rgba(0,0,0,.10) 0 3".concat(_scratch.Unit, " 6").concat(_scratch.Unit)
   },
   10: {
-    boxShadow: "rgba(0,0,0,.10) 0 4".concat(_scratch.unit, " 10").concat(_scratch.unit)
+    boxShadow: "rgba(0,0,0,.10) 0 4".concat(_scratch.Unit, " 10").concat(_scratch.Unit)
   },
   16: {
-    boxShadow: "rgba(0,0,0,.10) 0 8".concat(_scratch.unit, " 16").concat(_scratch.unit)
+    boxShadow: "rgba(0,0,0,.10) 0 8".concat(_scratch.Unit, " 16").concat(_scratch.Unit)
   },
   26: {
-    boxShadow: "rgba(0,0,0,.10) 0 14".concat(_scratch.unit, " 26").concat(_scratch.unit)
+    boxShadow: "rgba(0,0,0,.10) 0 14".concat(_scratch.Unit, " 26").concat(_scratch.Unit)
   },
   42: {
-    boxShadow: "rgba(0,0,0,.10) 0 20".concat(_scratch.unit, " 42").concat(_scratch.unit)
+    boxShadow: "rgba(0,0,0,.10) 0 20".concat(_scratch.Unit, " 42").concat(_scratch.Unit)
   }
 };
 exports.depth = depth;
@@ -7989,14 +4721,14 @@ var shape = {
 exports.shape = shape;
 var size = {
   default: {
-    height: "".concat(Math.pow(_scratch.size.ratio, 2), "em"),
-    padding: "0 ".concat(_scratch.size.ratio, "em"),
-    fontSize: "".concat(_scratch.size.base).concat(_scratch.unit),
-    lineHeight: "".concat(_scratch.size.base).concat(_scratch.unit)
+    height: "".concat(Math.pow(_scratch.Size.ratio, 2), "em"),
+    padding: "0 ".concat(_scratch.Size.ratio, "em"),
+    fontSize: "".concat(_scratch.Size.base).concat(_scratch.Unit),
+    lineHeight: "".concat(_scratch.Size.base).concat(_scratch.Unit)
   }
 };
 exports.size = size;
-},{"scratch":"../node_modules/scratch/src/index.js"}],"../src/Shape/index.js":[function(require,module,exports) {
+},{"@rackai/scratch":"../node_modules/@rackai/scratch/src/index.js"}],"../src/Shape/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8004,9 +4736,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _scratch = require("scratch");
-
-var _emotion = require("emotion");
+var _scratch = require("@rackai/scratch");
 
 var _style = require("./style");
 
@@ -8014,19 +4744,19 @@ var Shape = {
   style: _style.style,
   class: {
     shape: function shape(element) {
-      return (0, _emotion.css)(_style.shape[element.shape]);
+      return _style.shape[element.shape];
     },
     depth: function depth(element) {
-      return (0, _emotion.css)(_style.depth[element.depth]);
+      return _style.depth[element.depth];
     },
     round: function round(element) {
-      return (0, _emotion.css)(_style.round[element.round]);
+      return _style.round[element.round];
     },
     size: function size(element) {
-      return (0, _emotion.css)(_style.size[element.size]);
+      return _style.size[element.size];
     },
     theme: function theme(element) {
-      return (0, _emotion.css)(_scratch.theme[element.theme]);
+      return _scratch.Theme[element.theme];
     }
   },
   define: {
@@ -8043,13 +4773,55 @@ var Shape = {
       return param || 'default';
     },
     theme: function theme(param) {
-      return param || Object.keys(_scratch.theme)[0] || '';
+      return param || Object.keys(_scratch.Theme)[0] || '';
     }
-  }
+  } // mode: {
+  //   dark: {
+  //     theme: 'white'
+  //   }
+  // }
+  // theme: {
+  //   default: 'primary',
+  //   dark: 'whiteish'
+  // }
+  // size: {
+  //   default: 'auto',
+  //   mobile: 'fit'
+  // }
+  // spacing: {
+  //   default: ratio.phi,
+  //   mobile: ratio.perfect
+  // }
+
 };
 var _default = Shape;
 exports.default = _default;
-},{"scratch":"../node_modules/scratch/src/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./style":"../src/Shape/style.js"}],"../src/Icon/svg/arrow/bold/left.svg":[function(require,module,exports) {
+},{"@rackai/scratch":"../node_modules/@rackai/scratch/src/index.js","./style":"../src/Shape/style.js"}],"../src/SVG/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var useSVGSymbol = function useSVGSymbol(file) {
+  return "<use xlink:href=\"".concat(file, "\" />");
+}; // create icon
+
+
+var _default = {
+  tag: 'svg',
+  define: {
+    file: function file(param, element) {
+      return useSVGSymbol(param);
+    }
+  },
+  html: function html(element) {
+    return element.file || useSVGSymbol(element.key);
+  }
+};
+exports.default = _default;
+},{}],"../src/Icon/svg/arrow/bold/left.svg":[function(require,module,exports) {
 module.exports = '#8b8ca6163550506b62596f5aa125d79c';
 },{}],"../src/Icon/svg/arrow/bold/right.svg":[function(require,module,exports) {
 module.exports = '#8cfb16a991bc72a366d7d05be1def010';
@@ -8129,51 +4901,44 @@ var _svg = _interopRequireDefault(require("./svg"));
 
 var _style = _interopRequireDefault(require("./style"));
 
+var _SVG = _interopRequireDefault(require("../SVG"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var useSVGSymbol = function useSVGSymbol(name) {
-  return "<use xlink:href=\"".concat(_svg.default[name], "\" />");
-}; // create icon
-
-
-var Icon = {
-  tag: 'svg',
+var _default = {
+  proto: _SVG.default,
   style: _style.default,
-  class: {},
   define: {
-    name: function name(param, element) {
-      return useSVGSymbol(param);
+    name: function name(param) {
+      return param;
     }
+  },
+  file: function file(element) {
+    return _svg.default[element.name || element.key];
   },
   attr: {
     viewBox: '0 0 16 16'
-  },
-  html: function html(element) {
-    return element.name || useSVGSymbol(element.key);
   }
 };
-var _default = Icon;
 exports.default = _default;
-},{"./svg":"../src/Icon/svg/index.js","./style":"../src/Icon/style.js"}],"../src/IconText/style.js":[function(require,module,exports) {
-'use strict';
+},{"./svg":"../src/Icon/svg/index.js","./style":"../src/Icon/style.js","../SVG":"../src/SVG/index.js"}],"../src/IconText/style.js":[function(require,module,exports) {
+'use strict'; // import { Sequence, Size, Unit } from 'scratch'
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _scratch = require("scratch");
-
 var _default = {
   display: 'flex',
+  alignItems: 'center',
   alignContent: 'center',
   lineHeight: 1,
-  '& > svg': {
-    marginRight: "".concat(0.35, "em")
+  '> svg': {
+    marginInlineEnd: "".concat(0.35, "em")
   }
 };
 exports.default = _default;
-},{"scratch":"../node_modules/scratch/src/index.js"}],"../src/IconText/index.js":[function(require,module,exports) {
+},{}],"../src/IconText/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8187,9 +4952,8 @@ var _ = require("..");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var IconText = {
+var _default = {
   style: _style.default,
-  class: {},
   define: {
     icon: function icon(param) {
       return param || 'left';
@@ -8203,7 +4967,6 @@ var IconText = {
   },
   text: ''
 };
-var _default = IconText;
 exports.default = _default;
 },{"./style":"../src/IconText/style.js","..":"../src/index.js"}],"../src/Button/style.js":[function(require,module,exports) {
 'use strict';
@@ -8212,13 +4975,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _scratch = require("@rackai/scratch");
+
+var primaryFont = Object.keys(_scratch.Typography)[0];
+var defaultFont = primaryFont || '--system-default';
 var _default = {
   appearance: 'none',
   outline: 0,
-  cursor: 'pointer'
+  cursor: 'pointer',
+  fontFamily: 'inherit'
 };
 exports.default = _default;
-},{}],"../src/Button/index.js":[function(require,module,exports) {
+},{"@rackai/scratch":"../node_modules/@rackai/scratch/src/index.js"}],"../src/Button/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8228,27 +4997,140 @@ exports.default = void 0;
 
 var _style = _interopRequireDefault(require("./style"));
 
-var _ = require("../");
+var _ = require("..");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Button = {
+var _default = {
   proto: _.Shape,
   tag: 'button',
   style: _style.default
 };
-var _default = Button;
 exports.default = _default;
-},{"./style":"../src/Button/style.js","../":"../src/index.js"}],"../src/index.js":[function(require,module,exports) {
+},{"./style":"../src/Button/style.js","..":"../src/index.js"}],"../src/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+Object.defineProperty(exports, "Sequence", {
+  enumerable: true,
+  get: function () {
+    return _scratch.Sequence;
+  }
+});
+Object.defineProperty(exports, "Color", {
+  enumerable: true,
+  get: function () {
+    return _scratch.Color;
+  }
+});
+Object.defineProperty(exports, "Theme", {
+  enumerable: true,
+  get: function () {
+    return _scratch.Theme;
+  }
+});
+Object.defineProperty(exports, "Box", {
+  enumerable: true,
+  get: function () {
+    return _scratch.Box;
+  }
+});
+Object.defineProperty(exports, "Size", {
+  enumerable: true,
+  get: function () {
+    return _scratch.Size;
+  }
+});
+Object.defineProperty(exports, "Typography", {
+  enumerable: true,
+  get: function () {
+    return _scratch.Typography;
+  }
+});
+Object.defineProperty(exports, "Unit", {
+  enumerable: true,
+  get: function () {
+    return _scratch.Unit;
+  }
+});
+Object.defineProperty(exports, "set", {
+  enumerable: true,
+  get: function () {
+    return _scratch.set;
+  }
+});
+Object.defineProperty(exports, "colorStringToRGBAArray", {
+  enumerable: true,
+  get: function () {
+    return _scratch.colorStringToRGBAArray;
+  }
+});
+Object.defineProperty(exports, "opacify", {
+  enumerable: true,
+  get: function () {
+    return _scratch.opacify;
+  }
+});
+Object.defineProperty(exports, "mixTwoColors", {
+  enumerable: true,
+  get: function () {
+    return _scratch.mixTwoColors;
+  }
+});
+Object.defineProperty(exports, "hexToRGB", {
+  enumerable: true,
+  get: function () {
+    return _scratch.hexToRGB;
+  }
+});
+Object.defineProperty(exports, "hexToRGBA", {
+  enumerable: true,
+  get: function () {
+    return _scratch.hexToRGBA;
+  }
+});
+Object.defineProperty(exports, "mixTwoRGB", {
+  enumerable: true,
+  get: function () {
+    return _scratch.mixTwoRGB;
+  }
+});
+Object.defineProperty(exports, "mixTwoRGBA", {
+  enumerable: true,
+  get: function () {
+    return _scratch.mixTwoRGBA;
+  }
+});
+Object.defineProperty(exports, "getFontFormat", {
+  enumerable: true,
+  get: function () {
+    return _scratch.getFontFormat;
+  }
+});
+Object.defineProperty(exports, "setCustomFont", {
+  enumerable: true,
+  get: function () {
+    return _scratch.setCustomFont;
+  }
+});
+Object.defineProperty(exports, "getFontFace", {
+  enumerable: true,
+  get: function () {
+    return _scratch.getFontFace;
+  }
+});
 Object.defineProperty(exports, "Shape", {
   enumerable: true,
   get: function () {
     return _Shape.default;
+  }
+});
+Object.defineProperty(exports, "SVG", {
+  enumerable: true,
+  get: function () {
+    return _SVG.default;
   }
 });
 Object.defineProperty(exports, "Icon", {
@@ -8270,7 +5152,11 @@ Object.defineProperty(exports, "Button", {
   }
 });
 
+var _scratch = require("@rackai/scratch");
+
 var _Shape = _interopRequireDefault(require("./Shape"));
+
+var _SVG = _interopRequireDefault(require("./SVG"));
 
 var _Icon = _interopRequireDefault(require("./Icon"));
 
@@ -8279,7 +5165,7 @@ var _IconText = _interopRequireDefault(require("./IconText"));
 var _Button = _interopRequireDefault(require("./Button"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Shape":"../src/Shape/index.js","./Icon":"../src/Icon/index.js","./IconText":"../src/IconText/index.js","./Button":"../src/Button/index.js"}],"buttons/index.js":[function(require,module,exports) {
+},{"@rackai/scratch":"../node_modules/@rackai/scratch/src/index.js","./Shape":"../src/Shape/index.js","./SVG":"../src/SVG/index.js","./Icon":"../src/Icon/index.js","./IconText":"../src/IconText/index.js","./Button":"../src/Button/index.js"}],"buttons/index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8449,11 +5335,13 @@ exports.default = _default;
 },{"../../src":"../src/index.js"}],"index.js":[function(require,module,exports) {
 'use strict';
 
+var _domql = _interopRequireDefault(require("@rackai/domql"));
+
+var _style = _interopRequireDefault(require("./style"));
+
 require("./config");
 
-var _domql = _interopRequireDefault(require("domql"));
-
-var _styles = _interopRequireDefault(require("./styles"));
+require("./define");
 
 var _colors = _interopRequireDefault(require("./colors"));
 
@@ -8468,7 +5356,7 @@ var _iconText = _interopRequireDefault(require("./icons/iconText"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _domql.default.create({
-  class: _styles.default,
+  style: _style.default,
   h4: {
     a: {
       text: 'symbols yo!',
@@ -8495,7 +5383,7 @@ _domql.default.create({
     buttons: _buttons.default
   }
 });
-},{"./config":"config/index.js","domql":"../node_modules/domql/src/index.js","./styles":"styles.js","./colors":"colors/index.js","./buttons":"buttons/index.js","./shapes":"shapes/index.js","./icons":"icons/index.js","./icons/iconText":"icons/iconText.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@rackai/domql":"../node_modules/@rackai/domql/src/index.js","./style":"style.js","./config":"config/index.js","./define":"define.js","./colors":"colors/index.js","./buttons":"buttons/index.js","./shapes":"shapes/index.js","./icons":"icons/index.js","./icons/iconText":"icons/iconText.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -8523,7 +5411,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55317" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61090" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
